@@ -1,3 +1,22 @@
+# BoostDoc v1.6.3
+
+## Bugfixes — Datazap-Exporte (Nachbesserung v1.6.2)
+
+- **`Boost intake [hPa]` und `Boost target [hPa]` immer als Gauge**: Die v1.6.2-Annahme, `Boost target [hPa]` sei Absolutdruck, war falsch. WG-Positions-Daten aus dem Fixture belegen, dass beide Spalten Gauge sind (bei Spool-up WGpos=0 % — Wastegate geschlossen, Druck baut sich zur Target auf). Die `value > 1200`-Heuristik, die bei hohen Gauge-Werten fälschlich auf Absolutdruck wechselte, wurde entfernt. hPa-Spalten werden nun immer als Gauge behandelt (`× 0.0145038`). Auswirkung: Boost-Peak für das Stage2-Fixture korrigiert von 17.4 psi auf 21.4 psi (korrekt).
+- **`isTimingCorrectionColumn` erkennt jetzt Cyl.N-Punkt-Notation**: Datazap-Exporte verwenden `Timing Correction Cyl.4 []` (mit Punkt). Die alte Regex traf nur `Cyl4` ohne Punkt. Fix: `[\s.]*` vor `\d+`. Auswirkung: Timing Correction Cyl.4 = −6° im WOT des Stage2-Fixture wird jetzt erkannt → Status korrekt `red` statt `yellow`.
+- **S63 bekommt eigenes Preset**: `presetKeyForVehicle` routete S63 bisher auf `b58_gen2`. S63 hat nun ein eigenes `s63`-Preset in `RULE_PRESETS` (Placeholder-Schwellwerte identisch mit `b58_gen2`, TODO-Kommentar für spätere S63-Kalibrierung).
+
+## Expected Results
+
+- `sample_unknown_stage2_98oct_001.json`: Status `yellow → red` (echter Bugfix: Timing Correction Cyl.4 war nicht detektiert). `boostMaxPsi` 17.4 → 21.4 psi, `boostTargetMaxPsi` 6.5 → 21.0 psi (Gauge-Fix). `time`, `rail`, `stft1` jetzt gemappt. Alle Änderungen sind dokumentiert mit `_statusChange`-, `_boostMaxNote`-, `_boostTargetNote`-, `_timingNote`-Feldern.
+
+## Tests
+
+- `analyzer-csv-robustness.test.cjs`: hPa-Gauge-Test ersetzt den fehlerhaften v1.6.2-Absolutdruck-Test. Beide hPa-Spalten müssen bei Werten > 1200 hPa als Gauge (> 15 psi) erkannt werden.
+- `analyzer-fixtures.test.cjs`: Boost-Actual-/Target-Assertions für den Datazap-Fixture korrigiert (gauge psi ~ 21 psi).
+
+---
+
 # BoostDoc v1.6.2
 
 ## Bugfixes — Datazap-Exporte

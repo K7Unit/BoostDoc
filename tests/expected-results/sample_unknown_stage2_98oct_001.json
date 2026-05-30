@@ -5,11 +5,12 @@
   "platform": "Unbekannt",
   "stage": "STAGE2",
   "fuel": "98OCT",
-  "status": "yellow",
+  "status": "red",
+  "_statusChange": "yellow→red: bugfix. Timing Correction Cyl.N [] columns were not detected before (isTimingCorrectionColumn did not match dot-notation). Cyl.4 shows sustained -6° correction during WOT (>= timingSevere:6) = genuine finding.",
   "pullCount": 2,
-  "mainFinding": "2 Pulls erkannt, 2 gelb: Viele Kanäle fehlen: Rail, LPFP, WGDC, Timing Corrections.",
+  "mainFinding": "Timing Correction Cyl.4 -6° (WOT, rot). Gangwechsel im WOT erkannt.",
   "mappedColumns": {
-    "time": null,
+    "time": "Time [ms]",
     "pedal": "Pedal position [%]",
     "boost": "Boost intake [hPa]",
     "boostMani": "Boost intake [hPa]",
@@ -25,7 +26,7 @@
     "egt": "EGT before turbine model [°C]",
     "railReq": "Rail pressure target [MPa]",
     "lpfp": null,
-    "rail": null,
+    "rail": "Rail pressure actual [MPa]",
     "lambda1": "Lambda actual [lambda]",
     "lambda2": null,
     "lambdaTarget": null,
@@ -36,7 +37,7 @@
     "loadReq": "Load target max [%]",
     "maf": "Air mass [kg/h]",
     "mafReq": null,
-    "stft1": null,
+    "stft1": "Short Fuel Trim []",
     "stft2": null,
     "ltft1": null,
     "ltft2": null,
@@ -47,30 +48,31 @@
   },
   "missingRequiredChannels": [
     "LPFP",
-    "Rail",
-    "Timing Corrections",
     "WGDC"
   ],
   "importantValues": {
     "rpmMax": null,
-    "boostMaxPsi": 17.39,
-    "boostTargetMaxPsi": 6.53,
-    "railMinPsi": null,
+    "boostMaxPsi": 21.35,
+    "_boostMaxNote": "v1.6.3 bugfix: hPa boost columns are gauge; old threshold flipped >1200 hPa to absolute (capped at 17.4 psi)",
+    "boostTargetMaxPsi": 21.04,
+    "_boostTargetNote": "v1.6.3 bugfix: target is gauge like intake; old v1.6.2 absolute-detection was wrong",
+    "railMinPsi": 2466,
     "lpfpMinPsi": null,
     "iatMaxC": 31.5,
-    "timingCorrectionMax": null,
+    "timingCorrectionMax": 6.0,
+    "_timingNote": "v1.6.3 bugfix: Cyl.N timing columns now detected; Cyl.4 = -6° during WOT",
     "wgdcAvg": null
   },
   "findings": [
     {
-      "severity": "yellow",
-      "category": "Pull",
-      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+      "severity": "red",
+      "category": "Timing",
+      "text": "Timing Corrections bis 6.0 Grad."
     },
     {
       "severity": "yellow",
-      "category": "Daten",
-      "text": "Viele Kanäle fehlen: Rail, LPFP, WGDC, Timing Corrections."
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
     }
   ],
   "uncertainties": [

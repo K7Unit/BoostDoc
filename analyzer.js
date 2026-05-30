@@ -186,6 +186,28 @@
         missingChannelsWarnCount: 5,
       },
     },
+    // TODO: calibrate S63 thresholds with real V8 bi-turbo logs; GDI rail/LPFP match b58_gen2, WGDC and IAT may differ
+    s63: {
+      label: "S63",
+      detail: "S63 V8 bi-turbo — placeholder thresholds matching b58_gen2, pending S63-specific calibration.",
+      rules: {
+        ...DEFAULT_RULES,
+        boostEvaluationMinRpm: 3500,
+        timingWarn: 3.5,
+        railWarn: 2400,
+        railSevere: 2050,
+        lpfpWarn: 50,
+        lpfpSevere: 40,
+        wgdcWarnAvg: 86,
+        wgdcSevereAvg: 93,
+        wgdcSevereMax: 98,
+        iatWarnMaxC: 62,
+        iatSevereMaxC: 78,
+        iatWarnRiseC: 22,
+        iatSevereRiseC: 32,
+        missingChannelsWarnCount: 5,
+      },
+    },
   };
 
   function rulesForPreset(key) {
@@ -194,7 +216,8 @@
 
   function presetKeyForVehicle(vehicleInfo) {
     const engine = vehicleInfo?.engine || "";
-    if (/S63|S58/i.test(engine)) return "b58_gen2";
+    if (/S63/i.test(engine)) return "s63";
+    if (/S58/i.test(engine)) return "b58_gen2";
     if (/S55/i.test(engine)) return "n55";
     if (/B58 Gen2/i.test(engine)) return "b58_gen2";
     if (/B58 Gen1/i.test(engine)) return "b58_gen1";
@@ -519,7 +542,7 @@
   }
 
   function isTimingCorrectionColumn(header) {
-    return /(?:Cyl\s*\d+\s*Timing\s*Cor|Timing\s*Cor(?:rection)?\s*Cyl\s*\d+|Ignition\s*Cor(?:rection)?\s*Cyl\s*\d+|Knock\s*Cor(?:rection)?\s*Cyl\s*\d+)/i.test(header);
+    return /(?:Cyl[\s.]*\d+\s*Timing\s*Cor|Timing\s*Cor(?:rection)?\s*Cyl[\s.]*\d+|Ignition\s*Cor(?:rection)?\s*Cyl[\s.]*\d+|Knock\s*Cor(?:rection)?\s*Cyl[\s.]*\d+)/i.test(header);
   }
 
   function buildColumnMap(headers) {
@@ -625,9 +648,9 @@
         : value * 0.145038;
     }
     if (/(\(hPa\)|\[hPa\])/i.test(column)) {
-      const isAbsoluteHpa = /boost|manifold|intake/i.test(column) &&
-        (/target|requested|soll/i.test(column) || value > 1200);
-      return isAbsoluteHpa ? (value - 1000) * 0.0145038 : value * 0.0145038;
+      // Datazap [hPa] exports gauge pressure for boost/intake/target columns;
+      // the old value>1200 absolute-detection caused a discontinuity at high gauge values.
+      return value * 0.0145038;
     }
     return value;
   }

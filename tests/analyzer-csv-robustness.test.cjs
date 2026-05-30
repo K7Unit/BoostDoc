@@ -93,15 +93,23 @@ const pureRailResult = LogAnalyzer.analyzeText("pure-rail-drop.csv", purRailCsv,
 const pureRailDiag = pureRailResult.diagnoses.find((diag) => /Raildruck\/HDP|Rail pressure\/HPFP/i.test(diag.title));
 assert.ok(pureRailDiag, "Pure rail critical issue must route to rail/HPFP diagnosis");
 
-// Fix 1: Boost target [hPa] sub-1200 values must be treated as absolute pressure, not gauge
-const hpaTargetCsv = [
+// Fix 1: Boost intake [hPa] and Boost target [hPa] must always be treated as gauge pressure.
+// WG position data from Datazap logs confirms both columns are gauge:
+// at spool-up intake=302 hPa, target=1175 hPa, WGpos=0% (wastegate closed = building to target).
+// If target were absolute (2.54 psi) and actual were already 4.38 psi, WGpos would be OPEN.
+// At values > 1200 hPa the old value>1200 heuristic incorrectly flipped gauge to absolute.
+const hpaGaugeCsv = [
   "Time,RPM (rpm),Accel Ped. Pos. (%),Boost intake [hPa],Boost target [hPa],WGDC Bank 1 (%)",
-  ...Array.from({ length: 30 }, (_, i) => `${i * 0.1},${3000 + i * 100},100,${800 + i * 10},1175,70`),
+  ...Array.from({ length: 30 }, (_, i) => `${i * 0.1},${3000 + i * 100},100,${1300 + i * 5},1400,70`),
 ].join("\n");
-const hpaTargetResult = LogAnalyzer.analyzeText("hpa-target-abs-test.csv", hpaTargetCsv, LogAnalyzer.DEFAULT_RULES);
-const hpaTargetMax = hpaTargetResult.metrics.boost?.target?.max;
-assert.ok(Number.isFinite(hpaTargetMax) && hpaTargetMax < 5,
-  `Boost target [hPa] at 1175 hPa must be treated as absolute (~2.54 psi), not gauge (~17 psi). Got: ${hpaTargetMax}`);
+// 1300-1445 hPa gauge = ~18.9-20.9 psi actual; 1400 hPa gauge target = ~20.3 psi
+const hpaGaugeResult = LogAnalyzer.analyzeText("hpa-gauge-test.csv", hpaGaugeCsv, LogAnalyzer.DEFAULT_RULES);
+const hpaActualMax = hpaGaugeResult.metrics.boost?.actual?.max;
+assert.ok(Number.isFinite(hpaActualMax) && hpaActualMax > 15,
+  `Boost intake [hPa] at >1200 hPa must be treated as gauge (~18.9+ psi), not absolute (~4.35 psi). Got: ${hpaActualMax}`);
+const hpaTargetMax = hpaGaugeResult.metrics.boost?.target?.max;
+assert.ok(Number.isFinite(hpaTargetMax) && hpaTargetMax > 15,
+  `Boost target [hPa] at 1400 hPa must be treated as gauge (~20.3 psi), not absolute (~5.8 psi). Got: ${hpaTargetMax}`);
 
 // Fix 2: Rail pressure actual [MPa] must map to rail column
 const railMpaCsv = [
