@@ -73,4 +73,24 @@ const hardBurbleTiming = burbleResult.issues.filter(
 assert.ok((burbleStateCounts.overrun_burble || 0) > 0, "overrun/burble rows should be classified");
 assert.deepEqual(hardBurbleTiming, [], "burble/overrun timing must not become a hard WOT timing issue");
 
+// diagnosisForIssue: LPFP+rail-drop must route to lpfpRail, not rail
+const lpfpRailCsv = [
+  "Time,Boost (PSI),Boost target (PSI),RPM (rpm),Accel Ped. Pos. (%),Gear (-),Rail pressure (PSI),Fuel low pressure sensor (PSI),WGDC Bank 1 (%)",
+  ...Array.from({ length: 30 }, (_, i) => `${i * 0.1},15,16,${3500 + i * 100},100,3,1100,40,70`),
+].join("\n");
+const lpfpRailResult = LogAnalyzer.analyzeText("lpfp-rail-drop.csv", lpfpRailCsv, LogAnalyzer.DEFAULT_RULES);
+const lpfpRailIssue = lpfpRailResult.issues.find((issue) => /^analysis\.issue\.lpfp/.test(issue.i18nKey || ""));
+assert.ok(lpfpRailIssue, "LPFP critical with rail drop should produce an LPFP issue");
+const lpfpRailDiag = lpfpRailResult.diagnoses.find((diag) => /LPFP.*Rail|LPFP zieht/i.test(diag.title));
+assert.ok(lpfpRailDiag, "LPFP+rail-drop issue must route to lpfpRail diagnosis, not plain rail diagnosis");
+
+// Pure rail issue (no LPFP column) must still route to rail diagnosis
+const purRailCsv = [
+  "Time,Boost (PSI),Boost target (PSI),RPM (rpm),Accel Ped. Pos. (%),Gear (-),Rail pressure (PSI),WGDC Bank 1 (%)",
+  ...Array.from({ length: 30 }, (_, i) => `${i * 0.1},15,16,${3500 + i * 100},100,3,900,70`),
+].join("\n");
+const pureRailResult = LogAnalyzer.analyzeText("pure-rail-drop.csv", purRailCsv, LogAnalyzer.DEFAULT_RULES);
+const pureRailDiag = pureRailResult.diagnoses.find((diag) => /Raildruck\/HDP|Rail pressure\/HPFP/i.test(diag.title));
+assert.ok(pureRailDiag, "Pure rail critical issue must route to rail/HPFP diagnosis");
+
 console.log("analyzer csv robustness regression ok");

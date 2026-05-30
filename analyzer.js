@@ -849,10 +849,6 @@
     return msg(rules, "analysis.headline.multiClean", { pulls: pulls.length });
   }
 
-  function makeIssue(severity, category, text) {
-    return { severity, category, text };
-  }
-
   function statusFromIssues(issues) {
     if (issues.some((issue) => issue.severity === "red")) return "red";
     if (issues.some((issue) => issue.severity === "yellow")) return "yellow";
@@ -2869,16 +2865,8 @@
     }
 
     if (category === "Fuel") {
-      if (text.includes("rail") || issue.i18nKey === "analysis.issue.railCritical" || issue.i18nKey === "analysis.issue.railLow") {
-        return [diagnosis(rules, "analysis.diag.rail.title", [
-          "analysis.diag.rail.c1",
-          "analysis.diag.rail.c2",
-          "analysis.diag.rail.c3",
-          "analysis.diag.rail.c4",
-        ])];
-      }
-      if (text.includes("lpfp") || /^analysis\.issue\.lpfp/.test(issue.i18nKey || "")) {
-        const titleKey = text.includes("rail") || String(issue.i18nVars?.railDrop || "").trim()
+      if (/^analysis\.issue\.lpfp/.test(issue.i18nKey || "") || text.includes("lpfp")) {
+        const titleKey = String(issue.i18nVars?.railDrop || "").trim() || text.includes("rail")
           ? "analysis.diag.lpfpRail.title"
           : "analysis.diag.lpfp.title";
         return [diagnosis(rules, titleKey, [
@@ -2887,6 +2875,14 @@
           "analysis.diag.lpfp.c3",
           "analysis.diag.lpfp.c4",
           "analysis.diag.lpfp.c5",
+        ])];
+      }
+      if (issue.i18nKey === "analysis.issue.railCritical" || issue.i18nKey === "analysis.issue.railLow" || text.includes("rail")) {
+        return [diagnosis(rules, "analysis.diag.rail.title", [
+          "analysis.diag.rail.c1",
+          "analysis.diag.rail.c2",
+          "analysis.diag.rail.c3",
+          "analysis.diag.rail.c4",
         ])];
       }
       if (text.includes("lambda-bank") || issue.i18nKey === "analysis.issue.lambdaBankDiff") {

@@ -1,3 +1,16 @@
+# BoostDoc v1.6.1
+
+## Bugfix
+
+- Diagnose-Routing für Fuel-Kategorie korrigiert: LPFP-Issues, deren Text „rail" enthält (wegen Rail-Drop-Anhang), wurden fälschlich zur Rail/HDP-Diagnose geroutet statt zur LPFP-Diagnose. i18nKey wird jetzt vor Text-Matching geprüft.
+- Tote Funktion `makeIssue` entfernt; alle Issue-Erzeugungspfade nutzen `makeLocalizedIssue`.
+
+## Tests
+
+- Robustness-Test erweitert: LPFP+Rail-Drop muss zur `lpfpRail`-Diagnose routen; pure Rail-Issue muss zur `rail`-Diagnose routen.
+
+---
+
 # BoostDoc v1.6 learning update
 
 ## Referenzdaten
