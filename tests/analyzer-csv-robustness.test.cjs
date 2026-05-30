@@ -93,4 +93,43 @@ const pureRailResult = LogAnalyzer.analyzeText("pure-rail-drop.csv", purRailCsv,
 const pureRailDiag = pureRailResult.diagnoses.find((diag) => /Raildruck\/HDP|Rail pressure\/HPFP/i.test(diag.title));
 assert.ok(pureRailDiag, "Pure rail critical issue must route to rail/HPFP diagnosis");
 
+// Fix 1: Boost target [hPa] sub-1200 values must be treated as absolute pressure, not gauge
+const hpaTargetCsv = [
+  "Time,RPM (rpm),Accel Ped. Pos. (%),Boost intake [hPa],Boost target [hPa],WGDC Bank 1 (%)",
+  ...Array.from({ length: 30 }, (_, i) => `${i * 0.1},${3000 + i * 100},100,${800 + i * 10},1175,70`),
+].join("\n");
+const hpaTargetResult = LogAnalyzer.analyzeText("hpa-target-abs-test.csv", hpaTargetCsv, LogAnalyzer.DEFAULT_RULES);
+const hpaTargetMax = hpaTargetResult.metrics.boost?.target?.max;
+assert.ok(Number.isFinite(hpaTargetMax) && hpaTargetMax < 5,
+  `Boost target [hPa] at 1175 hPa must be treated as absolute (~2.54 psi), not gauge (~17 psi). Got: ${hpaTargetMax}`);
+
+// Fix 2: Rail pressure actual [MPa] must map to rail column
+const railMpaCsv = [
+  "Time,RPM (rpm),Accel Ped. Pos. (%),Boost (PSI),Boost target (PSI),Rail pressure actual [MPa],WGDC Bank 1 (%)",
+  ...Array.from({ length: 30 }, (_, i) => `${i * 0.1},${3000 + i * 100},100,15,14,10,70`),
+].join("\n");
+const railMpaResult = LogAnalyzer.analyzeText("rail-mpa-test.csv", railMpaCsv, LogAnalyzer.DEFAULT_RULES);
+assert.equal(railMpaResult.columns.rail, "Rail pressure actual [MPa]", "Rail pressure actual [MPa] must map to rail");
+assert.ok((railMpaResult.metrics.fuel?.rail?.max ?? 0) > 100,
+  "Rail pressure actual [MPa] values must convert to psi (10 MPa = 1450 psi)");
+
+// Fix 3: Time [ms] must map to time column and values must normalize to seconds
+const msTimeCsv = [
+  "Time [ms],RPM (rpm),Accel Ped. Pos. (%),Boost (PSI),Boost target (PSI)",
+  ...Array.from({ length: 30 }, (_, i) => `${i * 100},${3000 + i * 100},100,15,14`),
+].join("\n");
+const msTimeResult = LogAnalyzer.analyzeText("ms-time-test.csv", msTimeCsv, LogAnalyzer.DEFAULT_RULES);
+assert.equal(msTimeResult.columns.time, "Time [ms]", "Time [ms] must map to time column");
+const msDur = msTimeResult.metrics.selectedSegment?.duration;
+assert.ok(Number.isFinite(msDur) && msDur > 1 && msDur < 5,
+  `Time [ms] should yield ~2.9 second pull duration, not ~2900. Got: ${msDur}`);
+
+// Fix 4: Short Fuel Trim [] must map to stft1
+const stftCsv = [
+  "Time,RPM (rpm),Accel Ped. Pos. (%),Boost (PSI),Boost target (PSI),Short Fuel Trim []",
+  ...Array.from({ length: 30 }, (_, i) => `${i * 0.1},${3000 + i * 100},100,15,14,1.02`),
+].join("\n");
+const stftResult = LogAnalyzer.analyzeText("short-fuel-trim-test.csv", stftCsv, LogAnalyzer.DEFAULT_RULES);
+assert.equal(stftResult.columns.stft1, "Short Fuel Trim []", "Short Fuel Trim [] must map to stft1");
+
 console.log("analyzer csv robustness regression ok");

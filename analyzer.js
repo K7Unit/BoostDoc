@@ -524,7 +524,7 @@
 
   function buildColumnMap(headers) {
     return {
-      time: pickColumn(headers, [/^Time(?:\s*(?:\(s\)|\[s\]))?$/i, /^Zeit/i, /^Timestamp/i]),
+      time: pickColumn(headers, [/^Time(?:\s*(?:\(s\)|\[s\]|\[ms\]))?$/i, /^Zeit/i, /^Timestamp/i]),
       pedal: pickColumn(headers, [/Accel\.?\s*Ped/i, /Accelerator Pedal/i, /Pedal Position/i, /^Pedal/i]),
       boost: pickColumn(headers, [/^Boost \((PSI|Bar)\)$/i, /^Boost \[(hPa|kPa|MPa)\]$/i, /Boost intake \[(hPa|kPa)\]/i, /Boost pressure/i, /^Boost mean/i, /Boost actual/i, /Boost \(mani\)/i]),
       boostMani: pickColumn(headers, [/Boost \(mani\)/i, /Manifold pressure/i, /Boost intake \[(hPa|kPa)\]/i]),
@@ -540,7 +540,7 @@
       egt: pickColumn(headers, [/Exhaust gas calculated temp/i, /^EGT/i, /Abgastemperatur/i]),
       railReq: pickColumn(headers, [/Rail pressure req/i, /Rail pressure requested/i, /Rail pressure target/i, /Fuel rail pressure target/i, /High pressure fuel target/i]),
       lpfp: pickColumn(headers, [/PI\+\s*LPFP Actual/i, /LPFP Actual/i, /Fuel low pressure/i, /Low pressure fuel pump/i, /Low pressure fuel/i, /^LPFP/i]),
-      rail: pickColumn(headers, [/Rail pressure mean\s*1?\s*(?:\((PSI|Bar|MPa)\)|\[(hPa|kPa|MPa)\])?/i, /^Rail pressure (?:\((PSI|Bar|MPa)\)|\[(hPa|kPa|MPa)\])$/i, /Fuel rail pressure/i, /Fuel high pressure/i, /High pressure fuel/i, /^HPFP/i]),
+      rail: pickColumn(headers, [/Rail pressure mean\s*1?\s*(?:\((PSI|Bar|MPa)\)|\[(hPa|kPa|MPa)\])?/i, /Rail pressure actual/i, /^Rail pressure (?:\((PSI|Bar|MPa)\)|\[(hPa|kPa|MPa)\])$/i, /Fuel rail pressure/i, /Fuel high pressure/i, /High pressure fuel/i, /^HPFP/i]),
       lambda1: pickColumn(headers, [/^Lambda 1(?: \(AFR\))?$/i, /^Lambda actual/i, /^AFR$/i, /AFR bank 1/i, /Lambda bank 1/i]),
       lambda2: pickColumn(headers, [/^Lambda 2(?: \(AFR\))?$/i, /AFR bank 2/i, /Lambda bank 2/i]),
       lambdaTarget: pickColumn(headers, [/Lambda target/i]),
@@ -551,7 +551,7 @@
       loadReq: pickColumn(headers, [/^Load req\.?$/i, /Load req\. \(%\)/i, /Load requested/i, /Load request/i, /^Load target/i]),
       maf: pickColumn(headers, [/^MAF \(g\/s\)$/i, /^Air mass \[kg\/h\]$/i]),
       mafReq: pickColumn(headers, [/MAF Req/i, /MAF req/i, /MAF REQ/i]),
-      stft1: pickColumn(headers, [/STFT 1/i]),
+      stft1: pickColumn(headers, [/STFT 1/i, /Short Fuel Trim/i]),
       stft2: pickColumn(headers, [/STFT 2/i]),
       ltft1: pickColumn(headers, [/LTFT 1/i, /^LTFT/i]),
       ltft2: pickColumn(headers, [/LTFT 2/i]),
@@ -609,6 +609,11 @@
     return column && /(\*F|\(F\)|\[F\]|°F)/i.test(column) ? ((value - 32) * 5) / 9 : value;
   }
 
+  function normalizeTime(value, column) {
+    if (!Number.isFinite(value)) return NaN;
+    return column && /\[ms\]|\(ms\)/i.test(column) ? value / 1000 : value;
+  }
+
   function pressureToPsi(value, column) {
     if (!Number.isFinite(value)) return NaN;
     if (!column) return value;
@@ -620,9 +625,9 @@
         : value * 0.145038;
     }
     if (/(\(hPa\)|\[hPa\])/i.test(column)) {
-      return /boost|manifold|intake/i.test(column) && value > 1200
-        ? (value - 1000) * 0.0145038
-        : value * 0.0145038;
+      const isAbsoluteHpa = /boost|manifold|intake/i.test(column) &&
+        (/target|requested|soll/i.test(column) || value > 1200);
+      return isAbsoluteHpa ? (value - 1000) * 0.0145038 : value * 0.0145038;
     }
     return value;
   }
@@ -685,8 +690,8 @@
 
   function duration(rows, segment, timeColumn) {
     if (!timeColumn) return NaN;
-    const first = numberValue(rows[segment[0]][timeColumn]);
-    const last = numberValue(rows[segment[1]][timeColumn]);
+    const first = normalizeTime(numberValue(rows[segment[0]][timeColumn]), timeColumn);
+    const last = normalizeTime(numberValue(rows[segment[1]][timeColumn]), timeColumn);
     return Number.isFinite(first) && Number.isFinite(last) ? last - first : NaN;
   }
 
@@ -916,7 +921,7 @@
   }
 
   function eventTime(row, columns, fallbackIndex) {
-    const time = columns.time ? numberValue(row[columns.time]) : NaN;
+    const time = columns.time ? normalizeTime(numberValue(row[columns.time]), columns.time) : NaN;
     return Number.isFinite(time) ? time : fallbackIndex;
   }
 
@@ -1035,9 +1040,9 @@
   function normalizeSignals(row, prev = null, next = null, ctx = {}) {
     const columns = ctx.columns || buildColumnMap(Object.keys(row || {}));
     const readPressure = (source, column) => valueFrom(source, column, (value) => pressureToPsi(value, column));
-    const time = valueFrom(row, columns.time);
-    const prevTime = valueFrom(prev, columns.time);
-    const nextTime = valueFrom(next, columns.time);
+    const time = normalizeTime(valueFrom(row, columns.time), columns.time);
+    const prevTime = normalizeTime(valueFrom(prev, columns.time), columns.time);
+    const nextTime = normalizeTime(valueFrom(next, columns.time), columns.time);
     const dtPrev = Number.isFinite(time) && Number.isFinite(prevTime) && time !== prevTime ? Math.abs(time - prevTime) : 1;
     const dtNext = Number.isFinite(nextTime) && Number.isFinite(time) && nextTime !== time ? Math.abs(nextTime - time) : 1;
     const rpm = valueFrom(row, columns.rpm);
@@ -1191,13 +1196,13 @@
       : columnsInput?.columns || buildColumnMap(Object.keys(rows[0] || {}));
     const activeProfile = profile?.vehicle || profile?.profile || profile || {};
     const burble = resolveBurbleProfile(activeProfile, rules);
-    const firstTime = columns.time ? numberValue(rows[0]?.[columns.time]) : NaN;
+    const firstTime = columns.time ? normalizeTime(numberValue(rows[0]?.[columns.time]), columns.time) : NaN;
     let previousPedal = NaN;
     let lastPedalLiftTime = NaN;
     let lastPedalLiftIndex = NaN;
 
     return rows.map((row, index) => {
-      const time = columns.time ? numberValue(row[columns.time]) : NaN;
+      const time = columns.time ? normalizeTime(numberValue(row[columns.time]), columns.time) : NaN;
       const fallbackTime = index * 0.1;
       const currentTime = Number.isFinite(time) ? time : fallbackTime;
       const pedal = columns.pedal ? numberValue(row[columns.pedal]) : NaN;
@@ -1990,7 +1995,7 @@
   }
 
   function relativeTime(row, index, columns, startTime) {
-    const rawTime = columns.time ? numberValue(row[columns.time]) : NaN;
+    const rawTime = columns.time ? normalizeTime(numberValue(row[columns.time]), columns.time) : NaN;
     if (Number.isFinite(rawTime) && Number.isFinite(startTime)) return rawTime - startTime;
     if (Number.isFinite(rawTime)) return rawTime;
     return index;
@@ -2008,7 +2013,7 @@
 
   function buildTraceSeries(rows, columns, specs) {
     const startTime = columns.time
-      ? rows.map((row) => numberValue(row[columns.time])).find((value) => Number.isFinite(value))
+      ? rows.map((row) => normalizeTime(numberValue(row[columns.time]), columns.time)).find((value) => Number.isFinite(value))
       : NaN;
 
     return specs
@@ -2236,9 +2241,9 @@
     const segmentRowStates = allRowStates.slice(selectedSegment[0], selectedSegment[1] + 1);
     const segmentStateSummary = buildStateSummary(segmentRowStates);
     const dur = duration(rows, selectedSegment, columns.time);
-    const segmentStartTime = columns.time ? numberValue(rows[selectedSegment[0]][columns.time]) : NaN;
+    const segmentStartTime = columns.time ? normalizeTime(numberValue(rows[selectedSegment[0]][columns.time]), columns.time) : NaN;
     const legacySteadyRows = segmentRows.filter((row) => {
-      const time = columns.time ? numberValue(row[columns.time]) : NaN;
+      const time = columns.time ? normalizeTime(numberValue(row[columns.time]), columns.time) : NaN;
       const pedal = columns.pedal ? numberValue(row[columns.pedal]) : NaN;
       const afterSpool = !Number.isFinite(time) || !Number.isFinite(segmentStartTime) || time >= segmentStartTime + 0.75 || dur < 1.2;
       const pedalOk = !columns.pedal || !Number.isFinite(pedal) || pedal >= 85;
@@ -2247,7 +2252,7 @@
     const stateSteadyRows = segmentRows.filter((row, index) => {
       const stateEntry = segmentRowStates[index];
       if (stateEntry?.state !== ROW_STATES.WOT) return false;
-      const time = columns.time ? numberValue(row[columns.time]) : NaN;
+      const time = columns.time ? normalizeTime(numberValue(row[columns.time]), columns.time) : NaN;
       return !Number.isFinite(time) || !Number.isFinite(segmentStartTime) || time >= segmentStartTime + 0.75 || dur < 1.2;
     });
     const hardWotReady = stateSteadyRows.length >= 3;

@@ -45,10 +45,15 @@ const hpaResult = LogAnalyzer.analyzeText(
   { __profile: { burble: "unknown" } }
 );
 
+assert.equal(hpaResult.columns.time, "Time [ms]", "Time [ms] should map to time column");
 assert.equal(hpaResult.columns.boost, "Boost intake [hPa]", "hPa boost exports should map to boost");
 assert.equal(hpaResult.columns.target, "Boost target [hPa]", "hPa boost target exports should map to target");
+assert.equal(hpaResult.columns.rail, "Rail pressure actual [MPa]", "Rail pressure actual [MPa] should map to rail");
 assert.equal(hpaResult.columns.railReq, "Rail pressure target [MPa]", "MPa rail target exports should map");
+assert.equal(hpaResult.columns.stft1, "Short Fuel Trim []", "Short Fuel Trim [] should map to stft1");
 assert.ok(hpaResult.metrics.boost.actual.max < 40, "hPa boost should be converted to gauge psi, not treated as raw psi");
+assert.ok((hpaResult.metrics.boost?.target?.max ?? 100) < 10, "Boost target [hPa] absolute values must convert to gauge psi (max ~6.5 psi for this fixture)");
+assert.ok((hpaResult.metrics.fuel?.rail?.max ?? 0) > 100, "Rail pressure actual [MPa] must convert to psi for the hPa fixture");
 
 const b58FlexExpected = JSON.parse(fs.readFileSync(path.join(expectedDir, "sample_b58_gen1_e40_001.json"), "utf8"));
 assert.equal(b58FlexExpected.fuel, "E40", "Pure850-style names must not be misread as E85 fuel");
