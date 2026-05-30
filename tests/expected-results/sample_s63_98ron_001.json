@@ -1,0 +1,70 @@
+{
+  "fixture": "sample_s63_98ron_001.csv",
+  "rows": 0,
+  "headerCount": 35,
+  "platform": "S63",
+  "stage": "",
+  "fuel": "98RON",
+  "status": "red",
+  "pullCount": 0,
+  "mainFinding": "Keine Datenzeilen gefunden",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": "Boost (mani) (PSI)",
+    "boostDeviation": "Boost deviation (PSI)",
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": null,
+    "oilTemp": null,
+    "egt": "Exhaust gas calculated temp. (*F)",
+    "railReq": null,
+    "lpfp": null,
+    "rail": "Rail pressure mean 1 (PSI)",
+    "lambda1": "Lambda 1 (AFR)",
+    "lambda2": "Lambda 2 (AFR)",
+    "lambdaTarget": null,
+    "wgdc": "WGDC 1 (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": null,
+    "stft1": "STFT 1 (-)",
+    "stft2": "STFT 2 (-)",
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": null,
+    "antilag": null
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": null,
+    "boostTargetMaxPsi": null,
+    "railMinPsi": null,
+    "lpfpMinPsi": null,
+    "iatMaxC": null,
+    "timingCorrectionMax": null,
+    "wgdcAvg": null
+  },
+  "findings": [
+    {
+      "severity": "red",
+      "category": "Datei",
+      "text": "Die CSV enthält keine auswertbaren Datenzeilen."
+    }
+  ],
+  "uncertainties": [
+    "no_evaluable_pull",
+    "no_data_rows"
+  ]
+}

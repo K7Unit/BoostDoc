@@ -1,0 +1,206 @@
+{
+  "generatedAt": "2026-05-29T13:09:56.237Z",
+  "sourceCount": 25,
+  "fixtures": [
+    {
+      "fixture": "sample_b58_gen1_stage2_e40_001.csv",
+      "expected": "sample_b58_gen1_stage2_e40_001.json",
+      "platform": "B58 Gen1",
+      "rows": 122,
+      "status": "red",
+      "pullCount": 4
+    },
+    {
+      "fixture": "sample_b58_gen1_e40_001.csv",
+      "expected": "sample_b58_gen1_e40_001.json",
+      "platform": "B58 Gen1",
+      "rows": 116,
+      "status": "yellow",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_b58_gen1_stage2_e40_002.csv",
+      "expected": "sample_b58_gen1_stage2_e40_002.json",
+      "platform": "B58 Gen1",
+      "rows": 1432,
+      "status": "yellow",
+      "pullCount": 2
+    },
+    {
+      "fixture": "sample_unknown_stage2_98oct_001.csv",
+      "expected": "sample_unknown_stage2_98oct_001.json",
+      "platform": "Unbekannt",
+      "rows": 240,
+      "status": "yellow",
+      "pullCount": 2
+    },
+    {
+      "fixture": "sample_n13_stage2_001.csv",
+      "expected": "sample_n13_stage2_001.json",
+      "platform": "N13",
+      "rows": 229,
+      "status": "yellow",
+      "pullCount": 2
+    },
+    {
+      "fixture": "sample_n13_stage1_001.csv",
+      "expected": "sample_n13_stage1_001.json",
+      "platform": "N13",
+      "rows": 116,
+      "status": "yellow",
+      "pullCount": 2
+    },
+    {
+      "fixture": "sample_n13_stage1_002.csv",
+      "expected": "sample_n13_stage1_002.json",
+      "platform": "N13",
+      "rows": 186,
+      "status": "yellow",
+      "pullCount": 2
+    },
+    {
+      "fixture": "sample_n13_stage1_003.csv",
+      "expected": "sample_n13_stage1_003.json",
+      "platform": "N13",
+      "rows": 58,
+      "status": "yellow",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_n54_e50_001.csv",
+      "expected": "sample_n54_e50_001.json",
+      "platform": "Unbekannt",
+      "rows": 185,
+      "status": "yellow",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_n54_e50_002.csv",
+      "expected": "sample_n54_e50_002.json",
+      "platform": "Unbekannt",
+      "rows": 6647,
+      "status": "red",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_n54_stage1_e50_001.csv",
+      "expected": "sample_n54_stage1_e50_001.json",
+      "platform": "Unbekannt",
+      "rows": 4438,
+      "status": "yellow",
+      "pullCount": 4
+    },
+    {
+      "fixture": "sample_n55_stage2_e20_001.csv",
+      "expected": "sample_n55_stage2_e20_001.json",
+      "platform": "N55",
+      "rows": 88,
+      "status": "yellow",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_n55_stage1_95ron_001.csv",
+      "expected": "sample_n55_stage1_95ron_001.json",
+      "platform": "N55",
+      "rows": 84,
+      "status": "red",
+      "pullCount": 0
+    },
+    {
+      "fixture": "sample_s55_e30_001.csv",
+      "expected": "sample_s55_e30_001.json",
+      "platform": "S55",
+      "rows": 68,
+      "status": "red",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_s55_001.csv",
+      "expected": "sample_s55_001.json",
+      "platform": "S55",
+      "rows": 60,
+      "status": "red",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_s55_002.csv",
+      "expected": "sample_s55_002.json",
+      "platform": "S55",
+      "rows": 65,
+      "status": "yellow",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_s55_003.csv",
+      "expected": "sample_s55_003.json",
+      "platform": "S55",
+      "rows": 109,
+      "status": "red",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_s55_004.csv",
+      "expected": "sample_s55_004.json",
+      "platform": "S55",
+      "rows": 122,
+      "status": "red",
+      "pullCount": 2
+    },
+    {
+      "fixture": "sample_s55_stage2_98ron_001.csv",
+      "expected": "sample_s55_stage2_98ron_001.json",
+      "platform": "S55",
+      "rows": 99,
+      "status": "red",
+      "pullCount": 2
+    },
+    {
+      "fixture": "sample_s58_001.csv",
+      "expected": "sample_s58_001.json",
+      "platform": "S58",
+      "rows": 119,
+      "status": "red",
+      "pullCount": 3
+    },
+    {
+      "fixture": "sample_s58_002.csv",
+      "expected": "sample_s58_002.json",
+      "platform": "S58",
+      "rows": 101,
+      "status": "red",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_s58_stage2_98ron_001.csv",
+      "expected": "sample_s58_stage2_98ron_001.json",
+      "platform": "S58",
+      "rows": 152,
+      "status": "red",
+      "pullCount": 5
+    },
+    {
+      "fixture": "sample_s63_stage2_98ron_001.csv",
+      "expected": "sample_s63_stage2_98ron_001.json",
+      "platform": "S63",
+      "rows": 117,
+      "status": "red",
+      "pullCount": 1
+    },
+    {
+      "fixture": "sample_s63_98ron_001.csv",
+      "expected": "sample_s63_98ron_001.json",
+      "platform": "S63",
+      "rows": 0,
+      "status": "red",
+      "pullCount": 0
+    },
+    {
+      "fixture": "sample_s63_stage2_98ron_002.csv",
+      "expected": "sample_s63_stage2_98ron_002.json",
+      "platform": "S63",
+      "rows": 67,
+      "status": "yellow",
+      "pullCount": 1
+    }
+  ]
+}

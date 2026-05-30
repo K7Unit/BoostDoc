@@ -1,0 +1,91 @@
+{
+  "fixture": "sample_s63_stage2_98ron_001.csv",
+  "rows": 117,
+  "headerCount": 62,
+  "platform": "S63",
+  "stage": "STAGE2",
+  "fuel": "98RON",
+  "status": "red",
+  "pullCount": 1,
+  "mainFinding": "WGDC sehr hoch (76% avg).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (Bar)",
+    "boostMani": "Boost (mani) (Bar)",
+    "boostDeviation": "Boost deviation (Bar)",
+    "target": "Boost target RAM (Bar)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*C)",
+    "chargeAirTemp": "Charge air temp. (*C)",
+    "coolant": "Coolant (*C)",
+    "oilTemp": null,
+    "egt": "Exhaust gas calculated temp. (*C)",
+    "railReq": null,
+    "lpfp": null,
+    "rail": "Rail pressure mean 1 (Bar)",
+    "lambda1": "Lambda 1 (AFR)",
+    "lambda2": "Lambda 2 (AFR)",
+    "lambdaTarget": null,
+    "wgdc": "WGDC 1 (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (-)",
+    "stft2": "STFT 2 (-)",
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [
+    "LPFP"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 26.99,
+    "boostTargetMaxPsi": 29.01,
+    "railMinPsi": 4976.25,
+    "lpfpMinPsi": null,
+    "iatMaxC": 28,
+    "timingCorrectionMax": 4.2,
+    "wgdcAvg": 76.08
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Boost",
+      "text": "Boost folgt Target nicht sauber (avg 2.6 psi)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Timing",
+      "text": "Timing Corrections bis 4.2 Grad."
+    },
+    {
+      "severity": "red",
+      "category": "Turbo",
+      "text": "WGDC sehr hoch (76% avg)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 81.8 AFR erkannt."
+    }
+  ],
+  "uncertainties": [
+    "missing_channels"
+  ]
+}

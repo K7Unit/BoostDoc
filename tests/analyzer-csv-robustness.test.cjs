@@ -1,0 +1,76 @@
+const assert = require("node:assert/strict");
+const LogAnalyzer = require("../analyzer.js");
+
+assert.equal(typeof LogAnalyzer.analyzeText, "function", "analyzer.js should export analyzeText");
+
+const semicolonCsv = [
+  "Time;Engine speed;Accelerator Pedal;Throttle plate;Boost pressure (bar);Boost target (bar);Gear;Fuel low pressure (bar);Rail pressure mean 1 (bar);Lambda bank 1;WGDC Bank 1;Timing Correction Cyl 1",
+  "0,0;2500;95;84;0,60;0,60;3;5,0;180;12,0;55;0,0",
+  "0,2;3100;96;85;0,85;0,85;3;5,1;185;12,1;58;0,1",
+  "0,4;3700;96;86;1,05;1,05;3;5,1;190;12,0;60;0,2",
+  "0,6;4300;95;86;1,15;1,15;3;5,2;192;12,0;62;0,3",
+  "0,8;5000;95;86;1,20;1,20;3;5,2;195;11,9;63;0,4",
+].join("\n");
+
+const semicolonResult = LogAnalyzer.analyzeText("S58-semicolon-comma-decimal.csv", semicolonCsv, LogAnalyzer.DEFAULT_RULES);
+
+assert.equal(semicolonResult.vehicleInfo.engine, "S58", "S58 should be detected from filename");
+assert.equal(semicolonResult.metrics.rows, 5, "semicolon CSV rows should parse");
+assert.ok(semicolonResult.columns.rpm, "Engine speed should map to rpm");
+assert.ok(semicolonResult.columns.boost, "Boost pressure should map to boost");
+assert.ok(semicolonResult.columns.rail, "Rail pressure mean should map to rail");
+assert.ok(semicolonResult.metrics.boost.actual.max > 17, "bar boost with comma decimals should convert to psi");
+assert.ok(!semicolonResult.issues.some((issue) => issue.category === "Datei"), "valid semicolon CSV should not be treated as empty");
+
+const incompleteCsv = [
+  "Time,RPM",
+  "0,800",
+  "1,900",
+].join("\n");
+
+const incompleteResult = LogAnalyzer.analyzeText("incomplete-log.csv", incompleteCsv, LogAnalyzer.DEFAULT_RULES);
+
+assert.equal(incompleteResult.status, "red", "incomplete log should get a clear non-crashing status");
+assert.match(incompleteResult.headline, /Kein bewertbarer Pull|Keine Datenzeilen/, "incomplete log should explain why it cannot be evaluated");
+
+const transientFallbackCsv = [
+  "Time,RPM,Accel Pedal,Throttle Position,Boost (PSI),Boost target (PSI),Gear,Fuel low pressure (PSI),Rail pressure (PSI),Cyl1 Timing Cor,Torque Lim. active",
+  "0,2500,95,80,5,15,3,40,1100,0,0",
+  "1,3200,95,10,4,15,3,38,1050,8,1",
+  "2,3800,95,80,4,15,4,38,1050,8,1",
+  "3,4400,95,10,4,15,4,38,1050,8,1",
+  "4,5000,95,80,4,15,5,38,1050,8,1",
+].join("\n");
+
+const transientResult = LogAnalyzer.analyzeText("transient-fallback-low-fuel.csv", transientFallbackCsv, LogAnalyzer.DEFAULT_RULES);
+const hardTransientIssues = transientResult.issues.filter(
+  (issue) =>
+    issue.severity === "red" &&
+    ["Boost", "Fuel", "Timing", "Limiter"].includes(issue.category)
+);
+
+assert.deepEqual(hardTransientIssues, [], "fallback/transient rows must not create hard WOT Boost/Fuel/Timing/Limiter issues");
+assert.equal(transientResult.metrics.evaluation.hardWotReady, false, "transient fallback should not be hard-WOT-ready");
+assert.ok(
+  transientResult.notes.some((note) => /harte Boost-\/Fueling-\/Timing-Warnungen|nicht hart bewertet/i.test(note)),
+  "transient fallback should be visible as context"
+);
+
+const burbleCsv = [
+  "Time,RPM,Accel Pedal,Throttle Position,Boost (PSI),Boost target (PSI),Gear,Cyl1 Timing Cor",
+  "0,2600,95,82,8,8,3,0",
+  "1,3300,95,82,10,10,3,0",
+  "2,3600,0,8,0,0,3,9",
+  "3,3200,0,8,0,0,3,9",
+].join("\n");
+
+const burbleResult = LogAnalyzer.analyzeText("burble-overrun-timing.csv", burbleCsv, LogAnalyzer.DEFAULT_RULES);
+const burbleStateCounts = burbleResult.metrics.states?.counts || {};
+const hardBurbleTiming = burbleResult.issues.filter(
+  (issue) => issue.category === "Timing" && (issue.severity === "red" || issue.severity === "yellow")
+);
+
+assert.ok((burbleStateCounts.overrun_burble || 0) > 0, "overrun/burble rows should be classified");
+assert.deepEqual(hardBurbleTiming, [], "burble/overrun timing must not become a hard WOT timing issue");
+
+console.log("analyzer csv robustness regression ok");

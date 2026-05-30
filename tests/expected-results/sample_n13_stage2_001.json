@@ -1,0 +1,87 @@
+{
+  "fixture": "sample_n13_stage2_001.csv",
+  "rows": 229,
+  "headerCount": 37,
+  "platform": "N13",
+  "stage": "STAGE2",
+  "fuel": "",
+  "status": "yellow",
+  "pullCount": 2,
+  "mainFinding": "2 Pulls erkannt, 2 gelb: Throttle closures in 16% des Pulls.",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (Bar)",
+    "boostMani": null,
+    "boostDeviation": null,
+    "target": "Boost target (Bar)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": "Speed (km/h)",
+    "iat": "IAT (*C)",
+    "chargeAirTemp": null,
+    "coolant": "Coolant (*C)",
+    "oilTemp": "Oil temp (*C)",
+    "egt": null,
+    "railReq": null,
+    "lpfp": null,
+    "rail": "Rail pressure mean (Bar)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": null,
+    "lambdaTarget": null,
+    "wgdc": "WGDC (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF req. WGDC (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": null,
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [
+    "LPFP",
+    "Timing Corrections"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 17.7,
+    "boostTargetMaxPsi": 17.24,
+    "railMinPsi": 1585.34,
+    "lpfpMinPsi": null,
+    "iatMaxC": 24,
+    "timingCorrectionMax": null,
+    "wgdcAvg": 55.12
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Regelung",
+      "text": "Throttle closures in 16% des Pulls."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 140.9 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 9x vor."
+    }
+  ],
+  "uncertainties": [
+    "missing_channels"
+  ]
+}

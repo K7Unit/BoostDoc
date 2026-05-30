@@ -1,0 +1,82 @@
+{
+  "fixture": "sample_n55_stage2_e20_001.csv",
+  "rows": 88,
+  "headerCount": 60,
+  "platform": "N55",
+  "stage": "STAGE2",
+  "fuel": "E20",
+  "status": "yellow",
+  "pullCount": 1,
+  "mainFinding": "WGDC erhöht (86% avg).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": "Boost (mani) (PSI)",
+    "boostDeviation": "Boost deviation RAM (PSI)",
+    "target": "Boost target (PSI)",
+    "gear": null,
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": "Coolant (*F)",
+    "oilTemp": "Oil temp (*F)",
+    "egt": "EGT Pre-turbo (*F)",
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": null,
+    "rail": "Rail pressure mean (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": null,
+    "lambdaTarget": "Lambda target (AFR)",
+    "wgdc": "WGDC (%)",
+    "wgdcBase": "MHD+ WGDC Base (%)",
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": null,
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": null,
+    "ethanol": "Ethanol Content (Active) (%)",
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [
+    "Gear",
+    "LPFP"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 16,
+    "boostTargetMaxPsi": 17.1,
+    "railMinPsi": 2406,
+    "lpfpMinPsi": null,
+    "iatMaxC": 28.89,
+    "timingCorrectionMax": 3,
+    "wgdcAvg": 85.82
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Turbo",
+      "text": "WGDC erhöht (86% avg)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 152.6 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 18x vor."
+    }
+  ],
+  "uncertainties": [
+    "missing_channels"
+  ]
+}

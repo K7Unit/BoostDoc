@@ -1,0 +1,77 @@
+{
+  "fixture": "sample_s55_002.csv",
+  "rows": 65,
+  "headerCount": 53,
+  "platform": "S55",
+  "stage": "",
+  "fuel": "",
+  "status": "yellow",
+  "pullCount": 1,
+  "mainFinding": "Lambda-Bank-Differenz bis 0.51 AFR.",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": "Boost (mani) RAM (PSI)",
+    "boostDeviation": "Boost deviation (PSI)",
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": null,
+    "oilTemp": null,
+    "egt": null,
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": "Low pressure fuel pump (PSI)",
+    "rail": "Rail pressure mean (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": "Lambda bank 2 (AFR)",
+    "lambdaTarget": null,
+    "wgdc": "WGDC (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": "STFT 2 (%)",
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": "LTFT 2 (%)",
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 25.3,
+    "boostTargetMaxPsi": 22.5,
+    "railMinPsi": 3498.3,
+    "lpfpMinPsi": 83.83,
+    "iatMaxC": 36.11,
+    "timingCorrectionMax": 3,
+    "wgdcAvg": 96.21
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "Lambda-Bank-Differenz bis 0.51 AFR."
+    },
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "AFR wirkt unter Last hoch (13.43)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Turbo",
+      "text": "WGDC erhöht (96% avg)."
+    }
+  ],
+  "uncertainties": []
+}

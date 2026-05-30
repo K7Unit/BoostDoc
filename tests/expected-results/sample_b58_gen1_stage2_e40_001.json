@@ -1,0 +1,101 @@
+{
+  "fixture": "sample_b58_gen1_stage2_e40_001.csv",
+  "rows": 122,
+  "headerCount": 49,
+  "platform": "B58 Gen1",
+  "stage": "STAGE2",
+  "fuel": "E40",
+  "status": "red",
+  "pullCount": 4,
+  "mainFinding": "4 Pulls erkannt, 2 rot: WGDC sehr hoch (90% avg).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": "Boost (mani) (PSI)",
+    "boostDeviation": "Boost deviation (PSI)",
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*C)",
+    "chargeAirTemp": null,
+    "coolant": null,
+    "oilTemp": "Oil temp (*C)",
+    "egt": "Exhaust gas calculated temp. (*C)",
+    "railReq": null,
+    "lpfp": null,
+    "rail": "Rail pressure mean 1 (PSI)",
+    "lambda1": "Lambda 1 (AFR)",
+    "lambda2": null,
+    "lambdaTarget": null,
+    "wgdc": "WGDC 1 (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (-)",
+    "stft2": null,
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": "Status Torque limiter (-)",
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [
+    "LPFP"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 23.3,
+    "boostTargetMaxPsi": 22.4,
+    "railMinPsi": 1841.4,
+    "lpfpMinPsi": null,
+    "iatMaxC": 42,
+    "timingCorrectionMax": 3,
+    "wgdcAvg": 90.3
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Boost",
+      "text": "Boost folgt Target nicht sauber (avg 1.9 psi)."
+    },
+    {
+      "severity": "red",
+      "category": "Turbo",
+      "text": "WGDC sehr hoch (90% avg)."
+    },
+    {
+      "severity": "red",
+      "category": "Limiter",
+      "text": "Torque Limiter war aktiv."
+    },
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "AFR-Spikes im stabilen Pull bis 20.1 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 235.2 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 22x vor."
+    }
+  ],
+  "uncertainties": [
+    "missing_channels"
+  ]
+}

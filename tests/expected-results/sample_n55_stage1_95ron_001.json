@@ -1,0 +1,79 @@
+{
+  "fixture": "sample_n55_stage1_95ron_001.csv",
+  "rows": 84,
+  "headerCount": 36,
+  "platform": "N55",
+  "stage": "STAGE1",
+  "fuel": "95RON",
+  "status": "red",
+  "pullCount": 0,
+  "mainFinding": "Kein bewertbarer Pull erkannt",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (Bar)",
+    "boostMani": null,
+    "boostDeviation": "Boost deviation RAM (Bar)",
+    "target": "Boost target (Bar)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*C)",
+    "chargeAirTemp": null,
+    "coolant": "Coolant (*C)",
+    "oilTemp": "Oil temp (*C)",
+    "egt": null,
+    "railReq": null,
+    "lpfp": null,
+    "rail": "Rail pressure mean (Bar)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": null,
+    "lambdaTarget": null,
+    "wgdc": "WGDC (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load actual RAM",
+    "loadReq": "Load req.",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": null,
+    "ltft1": "LTFT (%)",
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": null,
+    "antilag": null
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": null,
+    "boostTargetMaxPsi": null,
+    "railMinPsi": null,
+    "lpfpMinPsi": null,
+    "iatMaxC": null,
+    "timingCorrectionMax": null,
+    "wgdcAvg": null
+  },
+  "findings": [
+    {
+      "severity": "red",
+      "category": "Pull",
+      "text": "Kein stabiler Vollgasbereich wurde erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 235.2 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 16x vor."
+    }
+  ],
+  "uncertainties": [
+    "no_evaluable_pull"
+  ]
+}

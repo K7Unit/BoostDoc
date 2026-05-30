@@ -1,0 +1,77 @@
+{
+  "fixture": "sample_s63_stage2_98ron_002.csv",
+  "rows": 67,
+  "headerCount": 66,
+  "platform": "S63",
+  "stage": "STAGE2",
+  "fuel": "98RON",
+  "status": "yellow",
+  "pullCount": 1,
+  "mainFinding": "Pull ist kurz (1.1 s).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": "Boost (mani) (PSI)",
+    "boostDeviation": null,
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": "Coolant (*F)",
+    "oilTemp": "Oil temp (*F)",
+    "egt": null,
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": "Low pressure fuel pump (PSI)",
+    "rail": "Rail pressure mean (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": "Lambda bank 2 (AFR)",
+    "lambdaTarget": null,
+    "wgdc": "WGDC (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": "STFT 2 (%)",
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": "LTFT 2 (%)",
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 17.9,
+    "boostTargetMaxPsi": 19.3,
+    "railMinPsi": 2786.8,
+    "lpfpMinPsi": 99.16,
+    "iatMaxC": 31.11,
+    "timingCorrectionMax": null,
+    "wgdcAvg": 85.1
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Pull ist kurz (1.1 s)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 235.2 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 13x vor."
+    }
+  ],
+  "uncertainties": []
+}

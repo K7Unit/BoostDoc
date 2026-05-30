@@ -1,0 +1,102 @@
+{
+  "fixture": "sample_s55_stage2_98ron_001.csv",
+  "rows": 99,
+  "headerCount": 50,
+  "platform": "S55",
+  "stage": "STAGE2",
+  "fuel": "98RON",
+  "status": "red",
+  "pullCount": 2,
+  "mainFinding": "2 Pulls erkannt, 1 rot: WGDC sehr hoch (94% avg).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": null,
+    "boostDeviation": "Boost deviation (PSI)",
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": null,
+    "oilTemp": null,
+    "egt": null,
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": "Low pressure fuel pump (PSI)",
+    "rail": "Rail pressure mean (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": "Lambda bank 2 (AFR)",
+    "lambdaTarget": null,
+    "wgdc": "WGDC (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": "STFT 2 (%)",
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": "LTFT 2 (%)",
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": "Antilag Active (-)"
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 24.3,
+    "boostTargetMaxPsi": 22.8,
+    "railMinPsi": 2739.9,
+    "lpfpMinPsi": 78.23,
+    "iatMaxC": 33.89,
+    "timingCorrectionMax": 4.5,
+    "wgdcAvg": 93.67
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    },
+    {
+      "severity": "red",
+      "category": "Boost",
+      "text": "Boost liegt deutlich unter Target (avg 1.2 psi)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Timing",
+      "text": "Timing Corrections bis 4.5 Grad."
+    },
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "Lambda-Bank-Differenz bis 3.86 AFR."
+    },
+    {
+      "severity": "red",
+      "category": "Turbo",
+      "text": "WGDC sehr hoch (94% avg)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "AFR-Spikes im stabilen Pull bis 22.0 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 235.2 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 43x vor."
+    }
+  ],
+  "uncertainties": []
+}

@@ -1,0 +1,76 @@
+{
+  "fixture": "sample_n13_stage1_002.csv",
+  "rows": 186,
+  "headerCount": 40,
+  "platform": "N13",
+  "stage": "STAGE1",
+  "fuel": "",
+  "status": "yellow",
+  "pullCount": 2,
+  "mainFinding": "2 saubere Pulls erkannt",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": null,
+    "boostDeviation": null,
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": "Speed (mph)",
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": null,
+    "oilTemp": null,
+    "egt": null,
+    "railReq": null,
+    "lpfp": null,
+    "rail": "Rail pressure mean (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": null,
+    "lambdaTarget": null,
+    "wgdc": "WGDC (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": null,
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [
+    "LPFP"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 15.39,
+    "boostTargetMaxPsi": 15.3,
+    "railMinPsi": 1588.4,
+    "lpfpMinPsi": null,
+    "iatMaxC": 7.78,
+    "timingCorrectionMax": 2.3,
+    "wgdcAvg": 54.11
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 235.2 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 32x vor."
+    }
+  ],
+  "uncertainties": [
+    "missing_channels"
+  ]
+}

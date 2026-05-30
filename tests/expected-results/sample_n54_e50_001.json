@@ -1,0 +1,74 @@
+{
+  "fixture": "sample_n54_e50_001.csv",
+  "rows": 185,
+  "headerCount": 33,
+  "platform": "Unbekannt",
+  "stage": "",
+  "fuel": "E50",
+  "status": "yellow",
+  "pullCount": 1,
+  "mainFinding": "AFR-Dropouts ausserhalb stabiler Last bis 234.9 AFR erkannt.",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": null,
+    "boostDeviation": null,
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (RPM)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": "Coolant (*F)",
+    "oilTemp": "Oil temp (*F)",
+    "egt": null,
+    "railReq": null,
+    "lpfp": "Fuel low pressure sensor (PSI)",
+    "rail": "Rail pressure (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": "Lambda bank 2 (AFR)",
+    "lambdaTarget": null,
+    "wgdc": "WGDC Bank 1 (%)",
+    "wgdcBase": "WGDC Base Value (%)",
+    "throttle": "Throttle Position",
+    "loadActual": "Load actual",
+    "loadReq": "Load req.",
+    "maf": null,
+    "mafReq": "MAF Req (wgdc) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": "STFT 2 (%)",
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": "Torque Lim. active",
+    "torqueLimitIndex": null,
+    "antilag": null
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 19.3,
+    "boostTargetMaxPsi": 20.3,
+    "railMinPsi": 1836.2,
+    "lpfpMinPsi": 59.4,
+    "iatMaxC": 26.11,
+    "timingCorrectionMax": 2.3,
+    "wgdcAvg": 50.75
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 234.9 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 138x vor."
+    }
+  ],
+  "uncertainties": [
+    "platform_unknown"
+  ]
+}

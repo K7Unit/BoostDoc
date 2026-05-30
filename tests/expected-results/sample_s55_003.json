@@ -1,0 +1,82 @@
+{
+  "fixture": "sample_s55_003.csv",
+  "rows": 109,
+  "headerCount": 74,
+  "platform": "S55",
+  "stage": "",
+  "fuel": "",
+  "status": "red",
+  "pullCount": 1,
+  "mainFinding": "Boost liegt deutlich unter Target (avg 2.7 psi).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": "Boost (mani) (PSI)",
+    "boostDeviation": "Boost deviation (PSI)",
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": null,
+    "oilTemp": null,
+    "egt": null,
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": "Low pressure fuel pump (PSI)",
+    "rail": "Rail pressure mean (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": "Lambda bank 2 (AFR)",
+    "lambdaTarget": "Lambda target (AFR)",
+    "wgdc": "WGDC (%)",
+    "wgdcBase": "MHD+ WGDC Base (%)",
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": "STFT 2 (%)",
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": "LTFT 2 (%)",
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 24.7,
+    "boostTargetMaxPsi": 22.4,
+    "railMinPsi": 2812.1,
+    "lpfpMinPsi": 81.5,
+    "iatMaxC": 40,
+    "timingCorrectionMax": 4.2,
+    "wgdcAvg": 34.76
+  },
+  "findings": [
+    {
+      "severity": "red",
+      "category": "Boost",
+      "text": "Boost liegt deutlich unter Target (avg 2.7 psi)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Timing",
+      "text": "Timing Corrections bis 4.2 Grad."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 112.1 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 11x vor."
+    }
+  ],
+  "uncertainties": []
+}

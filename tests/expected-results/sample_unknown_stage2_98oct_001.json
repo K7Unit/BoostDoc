@@ -1,0 +1,80 @@
+{
+  "fixture": "sample_unknown_stage2_98oct_001.csv",
+  "rows": 240,
+  "headerCount": 37,
+  "platform": "Unbekannt",
+  "stage": "STAGE2",
+  "fuel": "98OCT",
+  "status": "yellow",
+  "pullCount": 2,
+  "mainFinding": "2 Pulls erkannt, 2 gelb: Viele Kanäle fehlen: Rail, LPFP, WGDC, Timing Corrections.",
+  "mappedColumns": {
+    "time": null,
+    "pedal": "Pedal position [%]",
+    "boost": "Boost intake [hPa]",
+    "boostMani": "Boost intake [hPa]",
+    "boostDeviation": null,
+    "target": "Boost target [hPa]",
+    "gear": "Gear []",
+    "rpm": "RPM [1/min]",
+    "speed": "Vehicle Speed [km/h]",
+    "iat": "Air intake temperature [°C]",
+    "chargeAirTemp": "Charge Air temperature [°C]",
+    "coolant": "Engine temperature [°C]",
+    "oilTemp": "Engine Oil temperature [°C]",
+    "egt": "EGT before turbine model [°C]",
+    "railReq": "Rail pressure target [MPa]",
+    "lpfp": null,
+    "rail": null,
+    "lambda1": "Lambda actual [lambda]",
+    "lambda2": null,
+    "lambdaTarget": null,
+    "wgdc": null,
+    "wgdcBase": null,
+    "throttle": "Throttle position [%]",
+    "loadActual": null,
+    "loadReq": "Load target max [%]",
+    "maf": "Air mass [kg/h]",
+    "mafReq": null,
+    "stft1": null,
+    "stft2": null,
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Limiter 1 []",
+    "antilag": null
+  },
+  "missingRequiredChannels": [
+    "LPFP",
+    "Rail",
+    "Timing Corrections",
+    "WGDC"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 17.39,
+    "boostTargetMaxPsi": 6.53,
+    "railMinPsi": null,
+    "lpfpMinPsi": null,
+    "iatMaxC": 31.5,
+    "timingCorrectionMax": null,
+    "wgdcAvg": null
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "Viele Kanäle fehlen: Rail, LPFP, WGDC, Timing Corrections."
+    }
+  ],
+  "uncertainties": [
+    "platform_unknown",
+    "missing_channels"
+  ]
+}

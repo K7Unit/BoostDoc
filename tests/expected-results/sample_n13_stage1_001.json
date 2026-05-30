@@ -1,0 +1,71 @@
+{
+  "fixture": "sample_n13_stage1_001.csv",
+  "rows": 116,
+  "headerCount": 46,
+  "platform": "N13",
+  "stage": "STAGE1",
+  "fuel": "",
+  "status": "yellow",
+  "pullCount": 2,
+  "mainFinding": "2 Pulls erkannt, 2 gelb: Throttle closures in 13% des Pulls.",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (Bar)",
+    "boostMani": "Boost (mani) (Bar)",
+    "boostDeviation": null,
+    "target": "Boost target (Bar)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": "Speed (km/h)",
+    "iat": "IAT (*C)",
+    "chargeAirTemp": null,
+    "coolant": null,
+    "oilTemp": "Oil temp (*C)",
+    "egt": "EGT hinter Hauptkat aus Modell (*C)",
+    "railReq": null,
+    "lpfp": null,
+    "rail": "Rail pressure mean (Bar)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": null,
+    "lambdaTarget": "Lambda target (AFR)",
+    "wgdc": "WGDC (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": null,
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [
+    "LPFP"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 16.87,
+    "boostTargetMaxPsi": 18.01,
+    "railMinPsi": 1411.29,
+    "lpfpMinPsi": null,
+    "iatMaxC": 34,
+    "timingCorrectionMax": 3,
+    "wgdcAvg": 58.94
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    }
+  ],
+  "uncertainties": [
+    "missing_channels"
+  ]
+}

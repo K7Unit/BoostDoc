@@ -1,0 +1,106 @@
+{
+  "fixture": "sample_b58_gen1_e40_001.csv",
+  "rows": 116,
+  "headerCount": 70,
+  "platform": "B58 Gen1",
+  "stage": "",
+  "fuel": "E40",
+  "status": "yellow",
+  "pullCount": 1,
+  "mainFinding": "Im Vollgasbereich wurden Gangwechsel erkannt.",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": null,
+    "boostDeviation": "Boost deviation (PSI)",
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": "Speed (mph)",
+    "iat": "IAT (*F)",
+    "chargeAirTemp": "Charge air temp. (*F)",
+    "coolant": "Coolant (*F)",
+    "oilTemp": "Oil temp (*F)",
+    "egt": "Exhaust gas calculated temp. (*F)",
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": null,
+    "rail": "Rail pressure mean 1 (PSI)",
+    "lambda1": "Lambda 1 (AFR)",
+    "lambda2": null,
+    "lambdaTarget": "Lambda target (AFR)",
+    "wgdc": "WGDC 1 (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (-)",
+    "stft2": null,
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": null,
+    "ethanol": "Ethanol Content (Active) (%)",
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": "Antilag Active (-)"
+  },
+  "missingRequiredChannels": [
+    "LPFP"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 19.7,
+    "boostTargetMaxPsi": 17.4,
+    "railMinPsi": 4485.4,
+    "lpfpMinPsi": null,
+    "iatMaxC": 46.11,
+    "timingCorrectionMax": 0,
+    "wgdcAvg": 77.91
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Boost",
+      "text": "Boost folgt Target nicht sauber (avg 2.2 psi)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Boost",
+      "text": "Overboost-Spitze bis +3.1 psi."
+    },
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "LTFT ausserhalb +/-10% (13%)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Turbo",
+      "text": "WGDC erhöht (78% avg)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "AFR-Spikes im stabilen Pull bis 30.0 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 235.2 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 11x vor."
+    }
+  ],
+  "uncertainties": [
+    "missing_channels"
+  ]
+}

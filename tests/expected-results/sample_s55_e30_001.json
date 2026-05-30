@@ -1,0 +1,72 @@
+{
+  "fixture": "sample_s55_e30_001.csv",
+  "rows": 68,
+  "headerCount": 44,
+  "platform": "S55",
+  "stage": "",
+  "fuel": "E30",
+  "status": "red",
+  "pullCount": 1,
+  "mainFinding": "Boost liegt deutlich unter Target (avg 4.6 psi).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": null,
+    "boostDeviation": null,
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": "Coolant (*F)",
+    "oilTemp": null,
+    "egt": null,
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": "Low pressure fuel pump (PSI)",
+    "rail": "Rail pressure mean (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": "Lambda bank 2 (AFR)",
+    "lambdaTarget": null,
+    "wgdc": "WGDC (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF req. WGDC (g/s)",
+    "stft1": null,
+    "stft2": null,
+    "ltft1": "LTFT - Faktor aus REDACTED_IDaption für Bank 1 (%)",
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 20.3,
+    "boostTargetMaxPsi": 22.3,
+    "railMinPsi": 2878.3,
+    "lpfpMinPsi": 82.06,
+    "iatMaxC": 27.78,
+    "timingCorrectionMax": 3,
+    "wgdcAvg": 99.12
+  },
+  "findings": [
+    {
+      "severity": "red",
+      "category": "Boost",
+      "text": "Boost liegt deutlich unter Target (avg 4.6 psi)."
+    },
+    {
+      "severity": "red",
+      "category": "Turbo",
+      "text": "WGDC sehr hoch (99% avg)."
+    }
+  ],
+  "uncertainties": []
+}

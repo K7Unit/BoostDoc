@@ -1,0 +1,102 @@
+{
+  "fixture": "sample_s58_001.csv",
+  "rows": 119,
+  "headerCount": 80,
+  "platform": "S58",
+  "stage": "",
+  "fuel": "",
+  "status": "red",
+  "pullCount": 3,
+  "mainFinding": "3 Pulls erkannt, 3 rot: Boost liegt deutlich unter Target (avg 7.9 psi).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": "Boost (mani) (PSI)",
+    "boostDeviation": "Boost deviation (PSI)",
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": "Speed (km/h)",
+    "iat": "IAT (*C)",
+    "chargeAirTemp": "Charge air temp. (*C)",
+    "coolant": "Coolant (*C)",
+    "oilTemp": "Oil temp (*C)",
+    "egt": "Exhaust gas calculated temp. (*C)",
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": "Low pressure fuel pump (PSI)",
+    "rail": "Rail pressure mean 1 (PSI)",
+    "lambda1": "Lambda 1 (AFR)",
+    "lambda2": "Lambda 2 (AFR)",
+    "lambdaTarget": "Lambda target (AFR)",
+    "wgdc": "WGDC 1 (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (-)",
+    "stft2": "STFT 2 (-)",
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": "Status Torque limiter (-)",
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": "Antilag Active (-)"
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 32.7,
+    "boostTargetMaxPsi": 22.4,
+    "railMinPsi": 4963.5,
+    "lpfpMinPsi": 71.2,
+    "iatMaxC": 26,
+    "timingCorrectionMax": 3.8,
+    "wgdcAvg": 75.65
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    },
+    {
+      "severity": "red",
+      "category": "Boost",
+      "text": "Boost liegt deutlich unter Target (avg 6.0 psi)."
+    },
+    {
+      "severity": "red",
+      "category": "Boost",
+      "text": "Overboost-Spitze bis +10.3 psi."
+    },
+    {
+      "severity": "yellow",
+      "category": "Timing",
+      "text": "Timing Corrections bis 3.8 Grad."
+    },
+    {
+      "severity": "yellow",
+      "category": "Turbo",
+      "text": "WGDC erhöht (76% avg)."
+    },
+    {
+      "severity": "red",
+      "category": "Limiter",
+      "text": "Torque Limiter war aktiv."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 235.2 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 4x vor."
+    }
+  ],
+  "uncertainties": []
+}

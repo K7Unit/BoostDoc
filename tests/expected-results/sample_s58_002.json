@@ -1,0 +1,77 @@
+{
+  "fixture": "sample_s58_002.csv",
+  "rows": 101,
+  "headerCount": 70,
+  "platform": "S58",
+  "stage": "",
+  "fuel": "",
+  "status": "red",
+  "pullCount": 1,
+  "mainFinding": "Boost liegt deutlich unter Target (avg 22.0 psi).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": null,
+    "boostDeviation": null,
+    "target": "Boost target RAM (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": "Speed (mph)",
+    "iat": "IAT (*F)",
+    "chargeAirTemp": "Charge air temp. (*F)",
+    "coolant": "Coolant (*F)",
+    "oilTemp": "Oil temp (*F)",
+    "egt": "Exhaust gas calculated temp. (*F)",
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": "PI+  LPFP Actual (PSI)",
+    "rail": "Rail pressure mean 1 (PSI)",
+    "lambda1": "Lambda 1 (AFR)",
+    "lambda2": null,
+    "lambdaTarget": "Lambda target (AFR)",
+    "wgdc": "WGDC 1 (%)",
+    "wgdcBase": "MHD+ WGDC Base (%)",
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load actual RAM",
+    "loadReq": "Load req. (%)",
+    "maf": null,
+    "mafReq": null,
+    "stft1": "STFT 1 (-)",
+    "stft2": null,
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": null,
+    "ethanol": "Ethanol Content (Active) (%)",
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": "Antilag Active (-)"
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 18.4,
+    "boostTargetMaxPsi": 31.1,
+    "railMinPsi": 4996.8,
+    "lpfpMinPsi": 78.67,
+    "iatMaxC": 56.11,
+    "timingCorrectionMax": 2.7,
+    "wgdcAvg": null
+  },
+  "findings": [
+    {
+      "severity": "red",
+      "category": "Boost",
+      "text": "Boost liegt deutlich unter Target (avg 22.0 psi)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 235.2 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 31x vor."
+    }
+  ],
+  "uncertainties": []
+}

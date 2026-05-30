@@ -1,0 +1,82 @@
+{
+  "fixture": "sample_s55_001.csv",
+  "rows": 60,
+  "headerCount": 76,
+  "platform": "S55",
+  "stage": "",
+  "fuel": "",
+  "status": "red",
+  "pullCount": 1,
+  "mainFinding": "WGDC sehr hoch (86% avg).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": "Boost (mani) (PSI)",
+    "boostDeviation": "Boost deviation (PSI)",
+    "target": "Boost target RAM (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": "Speed (mph)",
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": "Coolant (*F)",
+    "oilTemp": "Oil temp (*F)",
+    "egt": "EGT Pre-turbo (*F)",
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": "Low pressure fuel pump (PSI)",
+    "rail": "Rail pressure mean (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": "Lambda bank 2 (AFR)",
+    "lambdaTarget": "Lambda target (AFR)",
+    "wgdc": "WGDC (%)",
+    "wgdcBase": "MHD+ WGDC Base (%)",
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": null,
+    "mafReq": null,
+    "stft1": "STFT 1 (%)",
+    "stft2": "STFT 2 (%)",
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": "LTFT 2 (%)",
+    "ethanol": "Ethanol Content (Active) (%)",
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 29.3,
+    "boostTargetMaxPsi": 33.9,
+    "railMinPsi": 2684,
+    "lpfpMinPsi": 83.72,
+    "iatMaxC": 16.11,
+    "timingCorrectionMax": 0,
+    "wgdcAvg": 85.72
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Pull ist kurz (1.4 s)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Boost",
+      "text": "Boost folgt Target nicht sauber (avg 3.0 psi)."
+    },
+    {
+      "severity": "red",
+      "category": "Turbo",
+      "text": "WGDC sehr hoch (86% avg)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 77.0 AFR erkannt."
+    }
+  ],
+  "uncertainties": []
+}

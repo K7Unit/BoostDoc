@@ -1,0 +1,86 @@
+{
+  "fixture": "sample_b58_gen1_stage2_e40_002.csv",
+  "rows": 1432,
+  "headerCount": 62,
+  "platform": "B58 Gen1",
+  "stage": "STAGE2",
+  "fuel": "E40",
+  "status": "yellow",
+  "pullCount": 2,
+  "mainFinding": "2 Pulls erkannt, 2 gelb: WGDC erhöht (86% avg).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": null,
+    "boostDeviation": "Boost deviation (PSI)",
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (rpm)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": "Charge air temp. (*F)",
+    "coolant": "Coolant (*F)",
+    "oilTemp": null,
+    "egt": null,
+    "railReq": "Rail pressure req. (PSI)",
+    "lpfp": null,
+    "rail": "Rail pressure mean 1 (PSI)",
+    "lambda1": "Lambda 1 (AFR)",
+    "lambda2": null,
+    "lambdaTarget": "Lambda target (AFR)",
+    "wgdc": "WGDC 1 (%)",
+    "wgdcBase": null,
+    "throttle": "Throttle Position (*)",
+    "loadActual": "Load act. (%)",
+    "loadReq": "Load req. (%)",
+    "maf": "MAF (g/s)",
+    "mafReq": "MAF REQ (P corr.) (g/s)",
+    "stft1": "STFT 1 (-)",
+    "stft2": null,
+    "ltft1": "LTFT 1 (%)",
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": null,
+    "torqueLimitIndex": "Torque lim. 1 (-)",
+    "antilag": null
+  },
+  "missingRequiredChannels": [
+    "LPFP"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 20.5,
+    "boostTargetMaxPsi": 18.5,
+    "railMinPsi": 5025.6,
+    "lpfpMinPsi": null,
+    "iatMaxC": 37.22,
+    "timingCorrectionMax": 3,
+    "wgdcAvg": 85.79
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Turbo",
+      "text": "WGDC erhöht (86% avg)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 235.2 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 177x vor."
+    }
+  ],
+  "uncertainties": [
+    "missing_channels"
+  ]
+}

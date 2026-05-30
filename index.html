@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BoostDoc</title>
+    <link rel="icon" type="image/png" href="assets/icons/boostdoc-icon.png" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="assets/icons/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0b0f1a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="BoostDoc" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-view="dashboard" data-theme="dark">
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <img class="brand-logo" src="assets/icons/boostdoc-icon.png" alt="" aria-hidden="true" />
+          <div>
+            <p class="eyebrow" data-i18n="brandEyebrow">BMW MHD Diagnose</p>
+            <h1>BoostDoc</h1>
+          </div>
+        </div>
+        <div class="actions">
+          <input id="fileInput" type="file" accept=".csv,text/csv" multiple />
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section id="dropZone" class="drop-zone" aria-label="CSV Dropzone">
+          <div class="drop-icon" aria-hidden="true">
+            <span></span>
+          </div>
+          <div class="drop-copy">
+            <strong data-i18n="dropStrong">CSVs hier ablegen</strong>
+            <span id="uploadStatus">oder CSV hier auswählen</span>
+          </div>
+          <label class="drop-cta" for="fileInput" data-i18n="uploadCsv">CSV auswählen</label>
+        </section>
+
+        <section class="summary-band" aria-label="Zusammenfassung">
+          <div class="metric">
+            <span class="metric-label" data-i18n="logs">Logs</span>
+            <strong id="metricTotal">0</strong>
+            <small data-i18n="loaded">geladen</small>
+          </div>
+          <div class="metric">
+            <span class="metric-label" data-i18n="green">Grün</span>
+            <strong id="metricGreen">0</strong>
+            <small data-i18n="healthy">gesund</small>
+          </div>
+          <div class="metric">
+            <span class="metric-label" data-i18n="yellow">Gelb</span>
+            <strong id="metricYellow">0</strong>
+            <small data-i18n="watch">beobachten</small>
+          </div>
+          <div class="metric">
+            <span class="metric-label" data-i18n="red">Rot</span>
+            <strong id="metricRed">0</strong>
+            <small data-i18n="check">prüfen</small>
+          </div>
+          <div class="metric wide">
+            <span class="metric-label" data-i18n="lastFinding">Letzter Befund</span>
+            <strong id="metricLast">Noch keine CSV geladen</strong>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <div class="panel list-panel">
+            <div class="panel-head">
+              <h2 data-i18n="trips">Fahrten</h2>
+              <span id="listCount">0 geladen</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="status">Status</th>
+                    <th data-i18n="file">Datei</th>
+                    <th data-i18n="pull">Pull</th>
+                    <th data-i18n="mainFinding">Hauptbefund</th>
+                  </tr>
+                </thead>
+                <tbody id="logTable">
+                  <tr class="empty-row">
+                    <td colspan="4" data-i18n="noLogsLoaded">Noch keine Logs geladen.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <aside class="panel detail-panel">
+            <div class="panel-head">
+              <h2 data-i18n="detail">Detail</h2>
+              <span id="detailBadge" class="status-pill neutral">Bereit</span>
+            </div>
+            <div id="detailView" class="detail-view">
+              <p class="muted" data-i18n="chooseLog">Wähle einen Log aus der Liste.</p>
+            </div>
+          </aside>
+        </section>
+
+        <section class="panel compare-panel">
+          <div class="panel-head">
+            <h2 data-i18n="logComparison">Log-Vergleich</h2>
+            <span id="compareSummary">Warte auf CSVs</span>
+          </div>
+          <div id="compareView" class="compare-view">
+            <p class="muted" data-i18n="compareEmpty">Lade mehrere Logs, um Fueling, Boost und DME-Eingriffe direkt zu vergleichen.</p>
+          </div>
+        </section>
+
+        <section class="panel trend-panel">
+          <div class="panel-head">
+            <h2 data-i18n="trendAnalysis">Trendanalyse</h2>
+            <span id="trendSummary">Mindestens 2 Logs</span>
+          </div>
+          <div id="trendView" class="trend-view">
+            <p class="muted" data-i18n="trendEmpty">Lade mehrere Logs desselben Fahrzeugs, um Veränderungen bei Fueling, Boost, Timing, WGDC und IAT zu sehen.</p>
+          </div>
+        </section>
+
+        <section class="panel rules-panel">
+          <div class="panel-head">
+            <h2 data-i18n="thresholds">Grenzwerte</h2>
+          </div>
+          <div class="settings-preferences">
+            <div class="settings-card">
+              <label class="language-select" for="languageSelect">
+                <span data-i18n="language">Sprache</span>
+                <select id="languageSelect">
+                  <option value="de">Deutsch</option>
+                  <option value="en">English</option>
+                  <option value="tr">Türkçe</option>
+                  <option value="pl">Polski</option>
+                  <option value="ru">Русский</option>
+                  <option value="it">Italiano</option>
+                  <option value="es">Español</option>
+                </select>
+              </label>
+            </div>
+            <div class="settings-card">
+              <label class="theme-switch" for="themeToggle">
+                <span data-i18n="display">Darstellung</span>
+                <input id="themeToggle" type="checkbox" />
+                <span class="theme-switch-track" aria-hidden="true">
+                  <span class="theme-switch-knob"></span>
+                </span>
+                <span id="themeModeText">Hell</span>
+              </label>
+            </div>
+          </div>
+          <div class="profile-tools">
+            <div class="profile-tools-head">
+              <div>
+                <strong data-i18n="vehicleProfile">Fahrzeugprofil</strong>
+                <span id="vehicleProfileStatus">Kein Profil aktiv</span>
+              </div>
+              <div class="profile-actions">
+                <button id="vehicleProfileNewButton" type="button" data-i18n="new">Neu</button>
+                <button id="vehicleProfileSaveButton" type="button" data-i18n="save">Speichern</button>
+                <button id="vehicleProfileDeleteButton" type="button" data-i18n="delete">Löschen</button>
+              </div>
+            </div>
+            <div class="profile-form">
+              <label>
+                Profil
+                <select id="vehicleProfileSelect">
+                  <option value="" data-i18n="noProfile">Kein Profil</option>
+                </select>
+              </label>
+              <label>
+                Name
+                <input id="vehicleProfileName" type="text" placeholder="z.B. E92 335i" />
+              </label>
+              <label>
+                Motor
+                <select id="vehicleProfileEngine">
+                  <option value="">Auto</option>
+                  <option value="N54">N54</option>
+                  <option value="N55">N55</option>
+                  <option value="B58 Gen1">B58 Gen1</option>
+                  <option value="B58 Gen2">B58 Gen2</option>
+                  <option value="S55">S55</option>
+                  <option value="S58">S58</option>
+                  <option value="S63">S63</option>
+                </select>
+              </label>
+              <label>
+                Stage
+                <input id="vehicleProfileStage" type="text" placeholder="Stage 2+" />
+              </label>
+              <label>
+                Kraftstoff
+                <input id="vehicleProfileFuel" type="text" placeholder="98 RON, E30, E50" />
+              </label>
+              <label>
+                Map
+                <input id="vehicleProfileMap" type="text" placeholder="MHD OTS, Custom, Map 1" />
+              </label>
+              <label class="profile-wide">
+                Hardware
+                <input id="vehicleProfileHardware" type="text" placeholder="Downpipes, HPFP, FMIC, xHP..." />
+              </label>
+              <label class="profile-wide">
+                Notizen
+                <input id="vehicleProfileNotes" type="text" placeholder="Wartung, bekannte Themen, Ziel..." />
+              </label>
+              <label>
+                Burble
+                <select id="vehicleProfileBurbleMode">
+                  <option value="unknown">Unbekannt</option>
+                  <option value="off">Aus</option>
+                  <option value="mild">Mild</option>
+                  <option value="medium">Mittel</option>
+                  <option value="aggressive">Aggressiv</option>
+                  <option value="custom">Custom</option>
+                </select>
+              </label>
+              <label>
+                Burble Dauer
+                <input id="vehicleProfileBurbleDuration" type="number" min="0" max="10" step="0.1" placeholder="Auto" />
+              </label>
+              <label>
+                Aggressivität
+                <input id="vehicleProfileBurbleAggression" type="number" min="0" max="10" step="1" placeholder="Auto" />
+              </label>
+              <label>
+                Min RPM
+                <input id="vehicleProfileBurbleMinRpm" type="number" min="0" step="100" placeholder="Auto" />
+              </label>
+              <label>
+                Max RPM
+                <input id="vehicleProfileBurbleMaxRpm" type="number" min="0" step="100" placeholder="Auto" />
+              </label>
+              <label>
+                Min Speed
+                <input id="vehicleProfileBurbleMinSpeed" type="number" min="0" step="1" placeholder="Auto" />
+              </label>
+            </div>
+          </div>
+          <div class="preset-strip">
+            <label>
+              Plattform
+              <select id="rulePreset">
+                <option value="auto">Auto</option>
+                <option value="n54">N54</option>
+                <option value="n55">N55</option>
+                <option value="b58_gen1">B58 Gen1</option>
+                <option value="b58_gen2">B58 Gen2</option>
+                <option value="custom">Benutzerdefiniert</option>
+              </select>
+            </label>
+            <span id="presetHint">Auto</span>
+          </div>
+          <div class="library-tools">
+            <div>
+              <strong>Referenzbibliothek</strong>
+              <span id="referenceToolsCount">0 Referenzen gespeichert</span>
+            </div>
+            <div class="library-tool-actions">
+              <button id="referenceExportButton" type="button">Exportieren</button>
+              <button id="referenceImportButton" type="button">Importieren</button>
+              <input id="referenceImportInput" type="file" accept=".json,application/json" />
+            </div>
+            <p id="referenceImportStatus">Referenzen bleiben lokal in diesem Browser, bis du sie exportierst.</p>
+          </div>
+          <div class="rules-layout">
+            <fieldset class="rule-section">
+              <legend>Pull</legend>
+              <label>
+                Dauer gelb
+                <input id="rulePullDurationWarn" type="number" value="2.2" min="0" step="0.1" />
+                <span>s</span>
+              </label>
+              <label>
+                Pedal avg gelb
+                <input id="rulePedalWarn" type="number" value="88" min="0" max="100" step="1" />
+                <span>%</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="rule-section">
+              <legend>Boost</legend>
+              <label>
+                Bewertung ab
+                <input id="ruleBoostEvalMinRpm" type="number" value="3500" min="0" step="100" />
+                <span>rpm</span>
+              </label>
+              <label>
+                Abweichung gelb
+                <input id="ruleBoostWarn" type="number" value="2" min="0" step="0.1" />
+                <span>psi avg</span>
+              </label>
+              <label>
+                Abweichung rot
+                <input id="ruleBoostSevere" type="number" value="4" min="0" step="0.1" />
+                <span>psi avg</span>
+              </label>
+              <label>
+                Underboost gelb
+                <input id="ruleBoostUnderWarn" type="number" value="3.5" min="0" step="0.1" />
+                <span>psi</span>
+              </label>
+              <label>
+                Underboost rot
+                <input id="ruleBoostUnderSevere" type="number" value="7" min="0" step="0.1" />
+                <span>psi</span>
+              </label>
+              <label>
+                Overboost gelb
+                <input id="ruleBoostOverWarn" type="number" value="3" min="0" step="0.1" />
+                <span>psi</span>
+              </label>
+              <label>
+                Overboost rot
+                <input id="ruleBoostOverSevere" type="number" value="5" min="0" step="0.1" />
+                <span>psi</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="rule-section">
+              <legend>Timing</legend>
+              <label>
+                Korrektur gelb
+                <input id="ruleTimingWarn" type="number" value="3" min="0" step="0.1" />
+                <span>Grad</span>
+              </label>
+              <label>
+                Korrektur rot
+                <input id="ruleTimingSevere" type="number" value="6" min="0" step="0.1" />
+                <span>Grad</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="rule-section">
+              <legend>Fueling</legend>
+              <label>
+                LPFP gelb
+                <input id="ruleLpfpWarn" type="number" value="55" min="0" step="1" />
+                <span>psi</span>
+              </label>
+              <label>
+                LPFP rot
+                <input id="ruleLpfpSevere" type="number" value="45" min="0" step="1" />
+                <span>psi</span>
+              </label>
+              <label>
+                LPFP sustained
+                <input id="ruleLpfpSustainedWarn" type="number" value="50" min="0" step="1" />
+                <span>psi nicht dauerhaft unterschreiten</span>
+              </label>
+              <label>
+                LPFP Dauer
+                <input id="ruleLpfpSustainedPctWarn" type="number" value="12" min="1" max="100" step="1" />
+                <span>% vom Pull</span>
+              </label>
+              <label>
+                Rail gelb
+                <input id="ruleRailWarn" type="number" value="1400" min="0" step="50" />
+                <span>psi</span>
+              </label>
+              <label>
+                Rail rot
+                <input id="ruleRailSevere" type="number" value="1200" min="0" step="50" />
+                <span>psi</span>
+              </label>
+              <label>
+                Lambda Diff gelb
+                <input id="ruleLambdaDiffWarn" type="number" value="0.5" min="0" step="0.05" />
+                <span>AFR</span>
+              </label>
+              <label>
+                AFR mager gelb
+                <input id="ruleAfrLeanWarn" type="number" value="13.2" min="8" step="0.1" />
+                <span>AFR</span>
+              </label>
+              <label>
+                STFT Anschlag
+                <input id="ruleStftPeggedWarn" type="number" value="32" min="0" step="1" />
+                <span>%</span>
+              </label>
+              <label>
+                Trim Bank Diff
+                <input id="ruleFuelTrimBankDiffWarn" type="number" value="10" min="0" step="1" />
+                <span>%</span>
+              </label>
+              <label>
+                LTFT gelb
+                <input id="ruleLtftWarn" type="number" value="10" min="0" step="1" />
+                <span>%</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="rule-section">
+              <legend>Turbo & Regelung</legend>
+              <label>
+                WGDC avg gelb
+                <input id="ruleWgdcWarnAvg" type="number" value="70" min="0" max="100" step="1" />
+                <span>%</span>
+              </label>
+              <label>
+                WGDC avg rot
+                <input id="ruleWgdcSevereAvg" type="number" value="80" min="0" max="100" step="1" />
+                <span>%</span>
+              </label>
+              <label>
+                WGDC max rot
+                <input id="ruleWgdcSevereMax" type="number" value="95" min="0" max="100" step="1" />
+                <span>%</span>
+              </label>
+              <label>
+                Throttle gelb
+                <input id="ruleThrottleClosureWarn" type="number" value="12" min="0" max="100" step="1" />
+                <span>% vom Pull</span>
+              </label>
+              <label>
+                Throttle rot
+                <input id="ruleThrottleClosureSevere" type="number" value="25" min="0" max="100" step="1" />
+                <span>% vom Pull</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="rule-section">
+              <legend>Temperatur & Daten</legend>
+              <label>
+                IAT max gelb
+                <input id="ruleIatWarnMax" type="number" value="60" min="0" step="1" />
+                <span>C</span>
+              </label>
+              <label>
+                IAT max rot
+                <input id="ruleIatSevereMax" type="number" value="75" min="0" step="1" />
+                <span>C</span>
+              </label>
+              <label>
+                IAT Anstieg gelb
+                <input id="ruleIatWarnRise" type="number" value="20" min="0" step="1" />
+                <span>C</span>
+              </label>
+              <label>
+                IAT Anstieg rot
+                <input id="ruleIatSevereRise" type="number" value="30" min="0" step="1" />
+                <span>C</span>
+              </label>
+              <label>
+                Fehlende Kanäle
+                <input id="ruleMissingChannelsWarn" type="number" value="4" min="1" step="1" />
+                <span>gelb ab Anzahl</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="rule-section">
+              <legend>Anomalien</legend>
+              <label>
+                AFR Spike gelb
+                <input id="ruleAfrSpikeWarn" type="number" value="20" min="10" step="0.5" />
+                <span>AFR</span>
+              </label>
+              <label>
+                AFR Spike rot
+                <input id="ruleAfrSpikeSevere" type="number" value="30" min="10" step="0.5" />
+                <span>AFR</span>
+              </label>
+              <label>
+                AFR Dropout
+                <input id="ruleAfrDropoutWarn" type="number" value="50" min="20" step="1" />
+                <span>ab hier Datenfehler</span>
+              </label>
+              <label>
+                235.19 Treffer
+                <input id="ruleMhdPlaceholderCount" type="number" value="3" min="1" step="1" />
+                <span>gelb ab Anzahl</span>
+              </label>
+              <label>
+                Throttle Delta
+                <input id="ruleThrottleMismatchDelta" type="number" value="35" min="5" max="100" step="1" />
+                <span>% Pedal - Throttle</span>
+              </label>
+              <label>
+                Throttle Treffer
+                <input id="ruleThrottleMismatchPullCount" type="number" value="3" min="1" step="1" />
+                <span>gelb ab Pull-Anzahl</span>
+              </label>
+              <label>
+                Hesitation min
+                <input id="ruleHesitationRpmMin" type="number" value="1600" min="0" step="100" />
+                <span>rpm</span>
+              </label>
+              <label>
+                Hesitation max
+                <input id="ruleHesitationRpmMax" type="number" value="1800" min="0" step="100" />
+                <span>rpm</span>
+              </label>
+              <label>
+                Hesitation Treffer
+                <input id="ruleHesitationPullCount" type="number" value="3" min="1" step="1" />
+                <span>gelb ab Pull-Anzahl</span>
+              </label>
+              <label>
+                Stabil ab Throttle
+                <input id="ruleAnomalySteadyThrottleMin" type="number" value="65" min="0" max="100" step="1" />
+                <span>% für Pull-Kontext</span>
+              </label>
+              <label>
+                Idle RPM max
+                <input id="ruleIdleRpmMax" type="number" value="900" min="500" step="50" />
+                <span>rpm</span>
+              </label>
+              <label>
+                Idle AFR Swing
+                <input id="ruleIdleAfrSwingWarn" type="number" value="1.3" min="0" step="0.1" />
+                <span>AFR Range</span>
+              </label>
+              <label>
+                Flatline Zeilen
+                <input id="ruleStaticValueWarnRows" type="number" value="12" min="3" step="1" />
+                <span>statische Werte</span>
+              </label>
+            </fieldset>
+
+            <fieldset class="rule-section">
+              <legend>N54 Log-Kontext</legend>
+              <label>
+                Zielgang
+                <input id="ruleN54RecommendedGear" type="number" value="3" min="1" max="8" step="1" />
+                <span>WOT Validierung</span>
+              </label>
+              <label>
+                Start max
+                <input id="ruleN54RecommendedMinRpm" type="number" value="2500" min="0" step="100" />
+                <span>rpm Zielbereich</span>
+              </label>
+              <label>
+                Ende min
+                <input id="ruleN54RecommendedEndRpm" type="number" value="6000" min="0" step="100" />
+                <span>rpm für Freigabe</span>
+              </label>
+            </fieldset>
+          </div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="Bereiche">
+        <button class="nav-button active" type="button" data-view="dashboard">
+          <span class="nav-glyph dashboard-glyph" aria-hidden="true"></span>
+          <span data-i18n="dashboard">Dashboard</span>
+        </button>
+        <button class="nav-button" type="button" data-view="current">
+          <span class="nav-glyph current-glyph" aria-hidden="true"></span>
+          <span data-i18n="current">Aktuell</span>
+        </button>
+        <button class="nav-button" type="button" data-view="history">
+          <span class="nav-glyph history-glyph" aria-hidden="true"></span>
+          <span data-i18n="history">Historie</span>
+        </button>
+        <button class="nav-button" type="button" data-view="settings">
+          <span class="nav-glyph settings-glyph" aria-hidden="true"></span>
+          <span data-i18n="settings">Einstellungen</span>
+        </button>
+      </nav>
+    </div>
+
+    <script src="analyzer.js"></script>
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

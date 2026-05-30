@@ -1,0 +1,89 @@
+{
+  "fixture": "sample_n54_stage1_e50_001.csv",
+  "rows": 4438,
+  "headerCount": 20,
+  "platform": "Unbekannt",
+  "stage": "STAGE1",
+  "fuel": "E50",
+  "status": "yellow",
+  "pullCount": 4,
+  "mainFinding": "4 Pulls erkannt, 4 gelb: Lambda-Bank-Differenz bis 0.69 AFR.",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": null,
+    "boostDeviation": null,
+    "target": "Boost target (PSI)",
+    "gear": null,
+    "rpm": "RPM (RPM)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": "Coolant (*F)",
+    "oilTemp": "Oil temp (*F)",
+    "egt": null,
+    "railReq": null,
+    "lpfp": "Fuel low pressure sensor (PSI)",
+    "rail": "Rail pressure (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": "Lambda bank 2 (AFR)",
+    "lambdaTarget": null,
+    "wgdc": null,
+    "wgdcBase": "WGDC Base Value (%)",
+    "throttle": "Throttle Position",
+    "loadActual": null,
+    "loadReq": null,
+    "maf": null,
+    "mafReq": "MAF Req (wgdc) (g/s)",
+    "stft1": null,
+    "stft2": null,
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": "Torque Lim. active",
+    "torqueLimitIndex": null,
+    "antilag": null
+  },
+  "missingRequiredChannels": [
+    "Gear",
+    "Timing Corrections",
+    "WGDC"
+  ],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 19.2,
+    "boostTargetMaxPsi": 18.2,
+    "railMinPsi": 2111.6,
+    "lpfpMinPsi": 60.7,
+    "iatMaxC": 48.89,
+    "timingCorrectionMax": null,
+    "wgdcAvg": null
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "Lambda-Bank-Differenz bis 0.69 AFR."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 234.9 AFR erkannt."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "MHD-AFR-Placeholder 235.19 kam 2028x vor."
+    },
+    {
+      "severity": "yellow",
+      "category": "Leerlauf",
+      "text": "AFR im Leerlauf schwankt bis 3.46 AFR."
+    }
+  ],
+  "uncertainties": [
+    "platform_unknown",
+    "missing_channels"
+  ]
+}

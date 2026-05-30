@@ -1,0 +1,104 @@
+{
+  "fixture": "sample_n54_e50_002.csv",
+  "rows": 6647,
+  "headerCount": 32,
+  "platform": "Unbekannt",
+  "stage": "",
+  "fuel": "E50",
+  "status": "red",
+  "pullCount": 1,
+  "mainFinding": "Boost liegt deutlich unter Target (avg 2.5 psi).",
+  "mappedColumns": {
+    "time": "Time",
+    "pedal": "Accel Ped. Pos. (%)",
+    "boost": "Boost (PSI)",
+    "boostMani": null,
+    "boostDeviation": null,
+    "target": "Boost target (PSI)",
+    "gear": "Gear (-)",
+    "rpm": "RPM (RPM)",
+    "speed": null,
+    "iat": "IAT (*F)",
+    "chargeAirTemp": null,
+    "coolant": null,
+    "oilTemp": "Oil temp (*F)",
+    "egt": null,
+    "railReq": null,
+    "lpfp": "Fuel low pressure sensor (PSI)",
+    "rail": "Rail pressure (PSI)",
+    "lambda1": "Lambda bank 1 (AFR)",
+    "lambda2": "Lambda bank 2 (AFR)",
+    "lambdaTarget": null,
+    "wgdc": "WGDC Bank 1 (%)",
+    "wgdcBase": "WGDC Base Value (%)",
+    "throttle": "Throttle Position",
+    "loadActual": "Load actual",
+    "loadReq": "Load req.",
+    "maf": null,
+    "mafReq": "MAF Req (wgdc) (g/s)",
+    "stft1": "STFT 1 (%)",
+    "stft2": "STFT 2 (%)",
+    "ltft1": null,
+    "ltft2": null,
+    "ethanol": null,
+    "torqueLimit": "Torque Lim. active",
+    "torqueLimitIndex": null,
+    "antilag": null
+  },
+  "missingRequiredChannels": [],
+  "importantValues": {
+    "rpmMax": null,
+    "boostMaxPsi": 28.9,
+    "boostTargetMaxPsi": 31.5,
+    "railMinPsi": 1239.6,
+    "lpfpMinPsi": 56.8,
+    "iatMaxC": 47.78,
+    "timingCorrectionMax": 1.7,
+    "wgdcAvg": 74.4
+  },
+  "findings": [
+    {
+      "severity": "yellow",
+      "category": "Pull",
+      "text": "Im Vollgasbereich wurden Gangwechsel erkannt."
+    },
+    {
+      "severity": "red",
+      "category": "Boost",
+      "text": "Boost liegt deutlich unter Target (avg 2.5 psi)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "STFT Bank-Differenz bis 16%."
+    },
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "Raildruck niedrig (1240 psi)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Fuel",
+      "text": "Lambda-Bank-Differenz bis 3.04 AFR."
+    },
+    {
+      "severity": "red",
+      "category": "Turbo",
+      "text": "WGDC sehr hoch (74% avg)."
+    },
+    {
+      "severity": "red",
+      "category": "Temperatur",
+      "text": "IAT zu hoch (48 C, +33 C)."
+    },
+    {
+      "severity": "yellow",
+      "category": "Daten",
+      "text": "AFR-Dropouts ausserhalb stabiler Last bis 234.9 AFR erkannt."
+    }
+  ],
+  "uncertainties": [
+    "platform_unknown"
+  ]
+}
