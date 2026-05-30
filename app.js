@@ -533,7 +533,8 @@ function renderReferenceTools() {
 }
 
 function presetKeyForEngine(engine) {
-  if (/S63|S58/i.test(engine)) return "b58_gen2";
+  if (/S63/i.test(engine)) return "s63";
+  if (/S58/i.test(engine)) return "b58_gen2";
   if (/S55/i.test(engine)) return "n55";
   if (/B58 Gen2/i.test(engine)) return "b58_gen2";
   if (/B58 Gen1/i.test(engine)) return "b58_gen1";

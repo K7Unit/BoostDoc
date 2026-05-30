@@ -2036,7 +2036,7 @@
 
   function buildTraceSeries(rows, columns, specs) {
     const startTime = columns.time
-      ? rows.map((row) => normalizeTime(numberValue(row[columns.time]), columns.time)).find((value) => Number.isFinite(value))
+      ? rows.map((row) => normalizeTime(numberValue(row[columns.time]), columns.time)).find((value) => Number.isFinite(value)) ?? NaN
       : NaN;
 
     return specs

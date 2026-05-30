@@ -10,6 +10,11 @@
 
 - `sample_unknown_stage2_98oct_001.json`: Status `yellow → red` (echter Bugfix: Timing Correction Cyl.4 war nicht detektiert). `boostMaxPsi` 17.4 → 21.4 psi, `boostTargetMaxPsi` 6.5 → 21.0 psi (Gauge-Fix). `time`, `rail`, `stft1` jetzt gemappt. Alle Änderungen sind dokumentiert mit `_statusChange`-, `_boostMaxNote`-, `_boostTargetNote`-, `_timingNote`-Feldern.
 
+## Post-Review-Fixes (Code-Review v1.6.3)
+
+- **`app.js` `presetKeyForEngine` für S63 korrigiert**: Die Parallel-Funktion in `app.js` wurde beim v1.6.3-S63-Preset-Routing nicht mitgepflegt. S63 wurde weiterhin auf `"b58_gen2"` geroutet, womit das neue `s63`-Preset im UI-Pfad (Profil-Auswahl, Preset-Anzeige, Mismatch-Warnung) nie angewendet wurde. Fix: `presetKeyForEngine` in `app.js` auf dieselbe Aufteilung gebracht wie `presetKeyForVehicle` in `analyzer.js`.
+- **`buildTraceSeries` `startTime` konnte `undefined` werden**: `Array.prototype.find()` gibt `undefined` zurück, wenn kein Element passt — nicht `NaN`. Bei einem Log ohne gültige Zeitwerte wurde `startTime = undefined` statt `NaN`, was `Number.isFinite(startTime)` auf `false` setzte und `relativeTime` dazu brachte, absolute statt relative Timestamps zu verwenden (falsche Chart-X-Achse). Fix: `?? NaN` nach dem `.find()`-Aufruf. Vorbestehender Fehler, nicht durch v1.6.3 eingeführt.
+
 ## Tests
 
 - `analyzer-csv-robustness.test.cjs`: hPa-Gauge-Test ersetzt den fehlerhaften v1.6.2-Absolutdruck-Test. Beide hPa-Spalten müssen bei Werten > 1200 hPa als Gauge (> 15 psi) erkannt werden.
