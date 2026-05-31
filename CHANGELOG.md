@@ -1,3 +1,19 @@
+# BoostDoc v1.6.4
+
+## Documentation Cleanup — analyzer.js comments only
+
+- **`pressureToPsi` kPa branch**: Added comment explaining why absolute-pressure detection (`value > 120`, subtract 100 kPa ambient) is kept and why this intentionally differs from the hPa branch — no Datazap kPa fixture has been observed, so gauge-only treatment cannot be confirmed for kPa the way WG position data confirms it for hPa.
+- **`pressureToPsi` hPa branch**: Expanded existing comment with WG position evidence: `WGpos = 0 %` at spool-up (wastegate closed, pressure building to target) is only consistent with gauge interpretation for both columns. Added reference to the v1.6.3 removal of the `value > 1200` heuristic.
+- **`buildColumnMap` `boostMani`**: Documented as a legacy mapping not read by analysis, charts, or the channel checklist. Guard note added: do not remove without a dedicated column-map cleanup review.
+- **`buildColumnMap` `boostDeviation`**: Documented as mapped specifically so `CHANNEL_CHECKLIST` in `app.js` can report column presence/absence; not used for metric calculation or issue generation.
+- **S63 preset TODO**: Replaced vague one-liner with 8-line actionable calibration guidance: required channels/conditions, confirmed `b58_gen2` carry-overs (rail, LPFP), and high-priority unknowns (`boostEvaluationMinRpm`, WGDC thresholds, IAT thresholds, `timingWarn`) that need real S63 V8 bi-turbo logs before the preset can be trusted.
+
+## Runtime Impact
+
+None. Comment-only changes — no analysis logic, thresholds, expected results, tests, or public fields were modified.
+
+---
+
 # BoostDoc v1.6.3
 
 ## Bugfixes — Datazap-Exporte (Nachbesserung v1.6.2)
