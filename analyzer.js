@@ -186,7 +186,16 @@
         missingChannelsWarnCount: 5,
       },
     },
-    // TODO: calibrate S63 thresholds with real V8 bi-turbo logs; GDI rail/LPFP match b58_gen2, WGDC and IAT may differ
+    // TODO: calibrate S63 (4.4L V8 bi-turbo) thresholds with real Datazap/MHD logs.
+    // Required: RPM, Boost, Boost target, WGDC Bank 1+2, IAT, Rail, LPFP, Timing Correction Cyl.1–8,
+    // Throttle, Pedal, Gear — minimum 3 clean WOT pulls 3rd gear 2500–6500 RPM (cold+warm pair ideal).
+    // Confident b58_gen2 carry-overs (GDI architecture matches): railWarn, railSevere, lpfpWarn, lpfpSevere.
+    // High-priority unknowns before first use with real S63 logs:
+    //   boostEvaluationMinRpm — V8 twin-turbo spools earlier; 3000–3200 RPM may fit better than 3500.
+    //   wgdcWarnAvg/wgdcSevereAvg — smaller individual turbine housings likely run higher duty cycles;
+    //     current 86/93 % copied from b58_gen2 may be too permissive; validate before relying on these.
+    //   iatWarnMaxC/iatSevereMaxC — compact V8 charge routing may produce higher IAT rises; check deltas.
+    //   timingWarn — 3.5° is a guess; adjust once baseline timing correction data is available.
     s63: {
       label: "S63",
       detail: "S63 V8 bi-turbo — placeholder thresholds matching b58_gen2, pending S63-specific calibration.",
@@ -550,7 +559,11 @@
       time: pickColumn(headers, [/^Time(?:\s*(?:\(s\)|\[s\]|\[ms\]))?$/i, /^Zeit/i, /^Timestamp/i]),
       pedal: pickColumn(headers, [/Accel\.?\s*Ped/i, /Accelerator Pedal/i, /Pedal Position/i, /^Pedal/i]),
       boost: pickColumn(headers, [/^Boost \((PSI|Bar)\)$/i, /^Boost \[(hPa|kPa|MPa)\]$/i, /Boost intake \[(hPa|kPa)\]/i, /Boost pressure/i, /^Boost mean/i, /Boost actual/i, /Boost \(mani\)/i]),
+      // boostMani: legacy mapping — not read by analysis, charts, or the channel checklist.
+      // Do not remove without a dedicated column-map cleanup review.
       boostMani: pickColumn(headers, [/Boost \(mani\)/i, /Manifold pressure/i, /Boost intake \[(hPa|kPa)\]/i]),
+      // boostDeviation: mapped so the channel checklist (app.js CHANNEL_CHECKLIST) can report
+      // whether this column is present in the upload. Not used for analysis or metric calculation.
       boostDeviation: pickColumn(headers, [/Boost deviation \((PSI|Bar|MPa)\)/i, /Boost deviation \[(hPa|kPa|MPa)\]/i, /Boost deviation RAM/i]),
       target: pickColumn(headers, [/^Boost target \((PSI|Bar)\)$/i, /^Boost target \[(hPa|kPa|MPa)\]$/i, /Boost target RAM/i, /MHD\+ Boost Target/i, /Target Boost/i, /Boost target/i, /Boost requested/i]),
       gear: pickColumn(headers, [/^Gear/i, /^Gang/i]),
@@ -643,13 +656,19 @@
     if (/(\(bar\)|\[bar\])/i.test(column)) return value * 14.5038;
     if (/(\(MPa\)|\[MPa\])/i.test(column)) return value * 145.038;
     if (/(\(kPa\)|\[kPa\])/i.test(column)) {
+      // MHD and similar loggers export boost/intake kPa as absolute pressure (~100 kPa at idle);
+      // subtract ambient (100 kPa) for boost/intake/manifold columns above 120 kPa.
+      // Intentionally differs from the hPa branch below: no Datazap kPa fixture has been observed,
+      // so gauge-only treatment cannot be confirmed for kPa the way WG position data confirms it for hPa.
       return /boost|manifold|intake/i.test(column) && value > 120
         ? (value - 100) * 0.145038
         : value * 0.145038;
     }
     if (/(\(hPa\)|\[hPa\])/i.test(column)) {
-      // Datazap [hPa] exports gauge pressure for boost/intake/target columns;
-      // the old value>1200 absolute-detection caused a discontinuity at high gauge values.
+      // Datazap [hPa] exports gauge pressure for boost/intake/target columns.
+      // Confirmed by WG position data: at spool-up WGpos=0% (wastegate closed, building to target),
+      // which is only consistent with actual < target when both are gauge.
+      // The old value>1200 absolute-detection caused a discontinuity at high gauge values (removed v1.6.3).
       return value * 0.0145038;
     }
     return value;
